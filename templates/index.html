@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <link href="static/css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="nescss">
+            <header :class="{ sticky: scrollPos > 50 }">
+              <div class="container">
+                    <div class="nav-brand">
+                        <h1><i class="snes-jp-logo brand-logo"></i>Dreambooth - stable diffusion</h1>
+                        <p>Train a stable diffusion model to generate new labels based on a small sample of images</p>
+                    </div>
+                </div>
+              </div>
+            </header>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="container">
+                <main class="main-content">
+                    
+                    <!-- About -->
+                    <section class="topic">
+                        <h2 id="about"><a href="#about">#</a>Train model</h2>
+                        <p>Set all the parameters, and upload the training images in a zip file</p>
+                        <br /><br />
+
+                        {% if MESSAGE_TITLE %}
+                        <div class="nes-container with-title is-centered is-error">
+                            <p class="title">{{MESSAGE_TITLE}}</p>
+                            <p>{{MESSAGE_CONTENT}}</p>
+                          </div>
+                        {% endif %}
+
+                        
+                        {% if not IS_RUNNING %}
+                        <!-- form with post action -->
+                        <form action="" method="POST" enctype="multipart/form-data">
+
+                            <label for="instance_name">Instance Name</label>
+                            <input type="text" id="instance_name" name="instance_name" class="nes-input" value="unique_name">
+
+                            <label for="training_subject">Training Subject</label>
+                            <div class="nes-select">
+                                <select required id="training_subject" name="training_subject">
+                                    <option value="Character" selected>Character</option>
+                                    <option value="Object">Object</option>
+                                    <option value="Style">Style</option>
+                                    <option value="Artist">Artist</option>
+                                    <option value="TV Show">TV Show</option>
+                                </select>
+                            </div>
+                            <label for="subject_type">Subject Type</label>
+                            <input type="text" id="subject_type" name="subject_type" class="nes-input" value="person">
+
+                            <label for="class_dir">Training Subject</label>
+                            <div class="nes-select">
+                                <select required id="class_dir" name="class_dir">
+                                    <option value="person_ddim" selected>person_ddim</option>
+                                    <option value="man_euler">man_euler</option>
+                                    <option value="man_unsplash">man_unsplash</option>
+                                    <option value="woman_ddim">woman_ddim</option>
+                                    <option value="blonde_woman">blonde_woman</option>
+                                </select>
+                            </div>
+
+                            <label for="training_steps">Training Steps</label>
+                            <input type="text" id="training_steps" name="training_steps" class="nes-input" value="1600">
+
+                            <label for="seed">seed</label>
+                            <input type="text" id="seed" name="seed" class="nes-input" value="75576">
+                            
+                            <label class="nes-btn">
+                                <span>Select zip file with images</span>
+                                <input type="file" id="images" name="images" accept=".zip">
+                              </label>
+
+                            <br /><br />
+                            <button type="submit" class="nes-btn is-success">Generate</button>
+                        </form>
+                        {% endif %}
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

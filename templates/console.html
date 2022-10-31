@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <link href="static/css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="nescss">
+            <header :class="{ sticky: scrollPos > 50 }">
+              <div class="container">
+                    <div class="nav-brand">
+                        <h1><i class="nes-bcrikko"></i> Stable diffusion - Setup</h1>
+                        <p>This page it's for the setup and download of stable diffusion model from huggingface.</p>
+                    </div>
+                </div>
+              </div>
+            </header>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="container">
+                <main class="main-content">
+                    
+                    <!-- About -->
+                    <section class="topic">
+                        <h2 id="about"><a href="#about">#</a>Text generation</h2>
+                        <p>Write an idea or question in the text area and see what BLOOM can generate </p>
+                        <br /><br />
+                        
+                        <!-- form with post action -->
+                        <form action="" method="POST">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" class="nes-input">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="nes-input">
+                            <label for="token">Token</label>
+                            <input type="password" id="token" name="token" class="nes-input">
+                            
+                            <button type="submit" class="nes-btn is-success">Download Model</button>
+                        </form>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>
