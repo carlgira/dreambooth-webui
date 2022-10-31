@@ -111,9 +111,10 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--lr_warmup_steps=0' + ' ' + \
                     '--center_crop' + ' ' + \
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
-                    '--num_class_images={0}'.format(SUBJECT_IMAGES)
+                    '--num_class_images={0}'.format(SUBJECT_IMAGES) + " 2>/home/ubuntu/dreambooth/output/train.log > /home/ubuntu/dreambooth/output/train.log"
 
-    getoutput(command)
+    o = getoutput(command)
+    print(o)
     
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 
