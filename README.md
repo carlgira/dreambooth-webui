@@ -1,4 +1,2 @@
-# bloom-webui
-Simple webui to use BLOOM Language Model.
-
-
+# dreambooth-webui
+Simple webui to setup and train dreambooth for stable diffusion
