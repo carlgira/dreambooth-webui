@@ -7,7 +7,7 @@ import os
 HOME_DIR = '/home/ubuntu'
 WORK_DIR = HOME_DIR + '/dreambooth'
 MODEL_NAME = HOME_DIR + "/stable-diffusion-webui/model.ckpt"
-SD_MODEL_PATH = WORK_DIR + 'models/stable-diffusion-v1-5'
+SD_MODEL_PATH = WORK_DIR + '/models/stable-diffusion-v1-5'
 
 
 def train_model(training_subject, subject_type, instance_name, class_dir, training_steps, seed):
