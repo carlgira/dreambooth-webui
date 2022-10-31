@@ -12,4 +12,4 @@ git clone "https://USER:$HF_TOKEN@huggingface.co/stabilityai/sd-vae-ft-mse"
 mv sd-vae-ft-mse vae
 rm -rf .git
 
-sudo systemctl restart stabble-diffusion.service
+

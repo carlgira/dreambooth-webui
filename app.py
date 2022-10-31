@@ -40,6 +40,9 @@ def home():
         with open(CHECK_POINT_PATH_SD, 'wb') as f:
             f.write(req.content)
         
+        subprocess.run(["sudo", "systemctl", "start", "stabble-diffusion.service"])
+           
+        
         sd_model = subprocess.run(["sh", "setup-stable-diffusion.sh", token])
         
         return render_template('index.html')
