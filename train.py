@@ -111,7 +111,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
                     '--num_class_images={0}'.format(SUBJECT_IMAGES)
 
-    print(command)
+    getoutput(command)
 
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 
