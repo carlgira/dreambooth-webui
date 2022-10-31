@@ -86,7 +86,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
 
 
 
-    command = "export CUDA_VISIBLE_DEVICES='0'; /home/ubuntu/.local/bin/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
+    command = "/home/ubuntu/.local/bin/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
                     Caption + ' ' + \
                     '--save_starting_step={0}'.format(stpsv) + ' ' + \
                     '--save_n_steps={0}'.format(stp) + ' ' + \
