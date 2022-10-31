@@ -12,6 +12,7 @@ import threading
 
 
 CHECK_POINT_PATH_SD = '/home/ubuntu/stable-diffusion-webui/model.ckpt'
+SD_RAW_MODEL = '/home/ubuntu/dreambooth/models/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
 UPLOAD_FOLDER = '/home/ubuntu/dreambooth/data'
 t = None
@@ -42,9 +43,14 @@ def home():
         
         subprocess.run(["sudo", "systemctl", "start", "stabble-diffusion.service"])
            
+        sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token])
         
-        sd_model = subprocess.run(["sh", "setup-stable-diffusion.sh", token])
-        
+        return render_template('index.html')
+    
+    if not os.path.exists(SD_RAW_MODEL):
+        token = request.form['token']
+        sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token])
+        print(sd_model)
         return render_template('index.html')
     
     if request.method == 'POST':
