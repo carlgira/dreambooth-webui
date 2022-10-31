@@ -1,6 +1,8 @@
 from asyncio import subprocess
+from re import sub
 from subprocess import getoutput
 import subprocess as subp
+import os
 
 HOME_DIR = '/home/ubuntu'
 WORK_DIR = HOME_DIR + '/dreambooth'
@@ -111,8 +113,9 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
                     '--num_class_images={0}'.format(SUBJECT_IMAGES) + " 2>/home/ubuntu/dreambooth/output/train.log > /home/ubuntu/dreambooth/output/train.log"
 
-    getoutput(command)
-
+    my_env = {**os.environ, 'CUDA_VISIBLE_DEVICES': '0'}
+    subp.run(command.split(' '), env=my_env)
+    
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 
     getoutput("sed -i '202s@.*@    checkpoint_path= \"{CHECKPOINT_PATH}\"@' {WORK_DIR}/convertosd_mod.py".format(CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR))
