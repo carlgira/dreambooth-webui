@@ -48,6 +48,9 @@ def home():
         return render_template('index.html')
     
     if not os.path.exists(SD_RAW_MODEL):
+        if request.method == 'GET':
+            return render_template('setup.html')
+        
         token = request.form['token']
         sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token])
         print(sd_model)
