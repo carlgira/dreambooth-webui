@@ -11,8 +11,7 @@ from werkzeug.utils import secure_filename
 import threading
 
 
-CHECK_POINT_PATH_SD = 'model.ckpt'
-SD_PATH = 'model'
+CHECK_POINT_PATH_SD = '/home/ubuntu/stable-diffusion-webui/model.ckpt'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
 UPLOAD_FOLDER = '/home/ubuntu/dreambooth/data'
 t = None
