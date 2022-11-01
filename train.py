@@ -114,7 +114,6 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--num_class_images={0}'.format(SUBJECT_IMAGES) + " 2>/home/ubuntu/dreambooth/output/train.log > /home/ubuntu/dreambooth/output/train.log"
 
     o = getoutput(command)
-    print(o)
     
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 

@@ -120,6 +120,7 @@ h2 > a {
 /* Showcase */
 section.showcase {
   margin-top: 2.5rem;
+  width: 90%;
 }
 section.showcase > section.nes-container {
   padding-bottom: 2.5rem;
@@ -169,9 +170,7 @@ section.message-list {
   display: flex;
   margin-top: 2rem;
 }
-.message-list > .message > .nes-balloon {
-  max-width: 550px;
-}
+
 .message-list > .message i {
   align-self: flex-end;
 }
@@ -316,3 +315,11 @@ img.lazy {
     margin-top: 190px;
   }
 }
+
+.columnform {
+  width: 45%;
+} 
+
+.column {
+  width: 45%;
+} 

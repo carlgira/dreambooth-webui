@@ -9,6 +9,7 @@ import subprocess
 from train import train_model
 from werkzeug.utils import secure_filename
 import threading
+import time
 
 
 CHECK_POINT_PATH_SD = '/home/ubuntu/stable-diffusion-webui/model.ckpt'
@@ -19,12 +20,13 @@ t = None
 
 # create a flask object
 flask = Flask(__name__)
+flask.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # create a route for the home page
 @flask.route('/', methods=['GET', 'POST'])
 def home():
     global t
-    
+
     # check if directory exists
     if not os.path.exists(CHECK_POINT_PATH_SD):
         
@@ -55,7 +57,7 @@ def home():
         sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token])
         print(sd_model)
         return render_template('index.html')
-    
+
     if request.method == 'POST':
         
         if t is None or not t.is_alive():
@@ -77,7 +79,6 @@ def home():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             
             # unzip the file
-            print(''.join(["unzip", UPLOAD_FOLDER + '/' + filename, '-d' , UPLOAD_FOLDER + '/' + instance_name]))
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + instance_name])
             unzip = subprocess.run(["unzip", UPLOAD_FOLDER + '/' + filename, '-d' , UPLOAD_FOLDER + '/' + instance_name])
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + filename])
@@ -86,9 +87,9 @@ def home():
             t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
             t.start()
             
-            return render_template('index.html', MESSAGE_TITLE='Training', MESSAGE_CONTENT='Training in progress', IS_RUNNING=True)
+            return render_template('index.html', MESSAGE_TITLE='Training', MESSAGE_CONTENT='Training in progress. You can reload this page to know if the process has ended.', IS_RUNNING=True)
         else:
-            return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Training already in progress', IS_RUNNING=True)
+            return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Training already in progress. You can reload this page to know if the process has ended.', IS_RUNNING=True)
     
     if request.method == 'GET':
         if t is not None and t.is_alive():

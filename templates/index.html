@@ -3,27 +3,28 @@
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
         <link href="static/css/style.css" rel="stylesheet" />
+        <title>Dreambooth</title>
     </head>
     <body>
         <div id="nescss">
             <header :class="{ sticky: scrollPos > 50 }">
               <div class="container">
                     <div class="nav-brand">
-                        <h1><i class="snes-jp-logo brand-logo"></i>Dreambooth - stable diffusion</h1>
+                        <h1><i class="nes-kirby brand-logo"></i>Dreambooth</h1>
                         <p>Train a stable diffusion model to generate new labels based on a small sample of images</p>
                     </div>
                 </div>
               </div>
             </header>
 
-            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <div class="container">
                 <main class="main-content">
                     
                     <!-- About -->
                     <section class="topic">
                         <h2 id="about"><a href="#about">#</a>Train model</h2>
-                        <p>Set all the parameters, and upload the training images in a zip file</p>
+                        <p>Set all the parameters, and upload the training images in a zip file. </p>
                         <br /><br />
 
                         {% if MESSAGE_TITLE %}
@@ -35,50 +36,142 @@
 
                         
                         {% if not IS_RUNNING %}
-                        <!-- form with post action -->
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <table>
 
-                            <label for="instance_name">Instance Name</label>
-                            <input type="text" id="instance_name" name="instance_name" class="nes-input" value="unique_name">
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <tr>
+                                    <td class="columnform">
+                                        <label for="instance_name">Instance Name</label>
+                                        <input type="text" id="instance_name" name="instance_name" class="nes-input" value="dotcsv">
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>This should be a unique label to add to the model. Think in something short and only with letters, maybe use three characters of your name, other three for your first lastname and other three from your second lastname.</p>
+                                    </td>
+                                </tr>
 
-                            <label for="training_subject">Training Subject</label>
-                            <div class="nes-select">
-                                <select required id="training_subject" name="training_subject">
-                                    <option value="Character" selected>Character</option>
-                                    <option value="Object">Object</option>
-                                    <option value="Style">Style</option>
-                                    <option value="Artist">Artist</option>
-                                    <option value="TV Show">TV Show</option>
-                                </select>
-                            </div>
-                            <label for="subject_type">Subject Type</label>
-                            <input type="text" id="subject_type" name="subject_type" class="nes-input" value="person">
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+                                
+                                <tr>
+                                    <td class="columnform">
+                                        <label for="training_subject">Training Subject</label>
+                                        <div class="nes-select">
+                                            <select required id="training_subject" name="training_subject">
+                                                <option value="Character" selected>Character</option>
+                                                <option value="Object">Object</option>
+                                                <option value="Style">Style</option>
+                                                <option value="Artist">Artist</option>
+                                                <option value="TV Show">TV Show</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>Choose the type of object you want. For persons or pets use "Character"</p>
+                                    </td>
+                                </tr>
+                                
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+                                
+                                <tr>
+                                    <td class="columnform">
+                                        <label for="subject_type">Subject Type</label>
+                                        <input type="text" id="subject_type" name="subject_type" class="nes-input" value="person">
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>Write a category. You can use "person", "man", "women", "pet", etc. By default with the category "person" it will work for a man or women</p>
+                                    </td>
+                                </tr>
 
-                            <label for="class_dir">Training Subject</label>
-                            <div class="nes-select">
-                                <select required id="class_dir" name="class_dir">
-                                    <option value="person_ddim" selected>person_ddim</option>
-                                    <option value="man_euler">man_euler</option>
-                                    <option value="man_unsplash">man_unsplash</option>
-                                    <option value="woman_ddim">woman_ddim</option>
-                                    <option value="blonde_woman">blonde_woman</option>
-                                </select>
-                            </div>
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+                                
+                                <tr>
+                                    <td class="columnform">
+                                        <label for="class_dir">Training Subject</label>
+                                        <div class="nes-select">
+                                            <select required id="class_dir" name="class_dir">
+                                                <option value="person_ddim" selected>person_ddim</option>
+                                                <option value="man_euler">man_euler</option>
+                                                <option value="man_unsplash">man_unsplash</option>
+                                                <option value="woman_ddim">woman_ddim</option>
+                                                <option value="blonde_woman">blonde_woman</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>To better train the model it's useful to use some datasets with images of the category you want to use. By default the person_ddim should work fine for man or woman</p>
+                                    </td>
+                                </tr>
 
-                            <label for="training_steps">Training Steps</label>
-                            <input type="text" id="training_steps" name="training_steps" class="nes-input" value="1600">
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+                                
+                                <tr>
+                                    <td class="columnform">
+                                        <label for="training_steps">Training Steps</label>
+                                        <input type="text" id="training_steps" name="training_steps" class="nes-input" value="1600">
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>The default value should be good, but you can play with the number of steps to tune the model. For example if the model is not recognizing you correclty, you can go up to 2500 or 3000, but be careful with overfitting</p>
+                                    </td>
+                                </tr>
+                                
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
 
-                            <label for="seed">seed</label>
-                            <input type="text" id="seed" name="seed" class="nes-input" value="75576">
-                            
-                            <label class="nes-btn">
-                                <span>Select zip file with images</span>
-                                <input type="file" id="images" name="images" accept=".zip">
-                              </label>
+                                <tr>
+                                    <td class="columnform">
+                                        <label for="seed">seed</label>
+                                        <input type="text" id="seed" name="seed" class="nes-input" value="75576">
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>This value is for control, to create reproducible results use the same seed, no need to change the default value</p>
+                                    </td>
+                                </tr>
 
-                            <br /><br />
-                            <button type="submit" class="nes-btn is-success">Generate</button>
-                        </form>
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+
+                                <tr>
+                                    <td class="columnform">
+                                        <label class="nes-btn">
+                                            <span>Select zip file with images</span>
+                                            <input type="file" id="images" name="images" accept=".zip">
+                                        </label>
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>This should be zip with your images, all of them should be 512 x 512.</p>
+                                        <div class="lists">
+                                            <ul class="nes-list is-circle">
+                                                <li>Be alone in the picture</li>
+                                                <li>Have different clothes</li>
+                                                <li>Different facial expressions</li>
+                                                <li>Different locations</li>
+                                                <li>Different angles</li>
+                                                <li>3-5 images of full body</li>
+                                                <li>5-7 images of half body</li>
+                                                <li>10-15 images of your face</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+                                
+                                
+
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="nes-text is-primary">The training should take around an hour.</span>
+                                        <br /><br />
+                                        <button type="submit" class="nes-btn is-success">Generate</button>
+                                    </td>
+                                </tr>
+                                
+                            </form>
+                        </table>
                         {% endif %}
                     </section>
                 </main>

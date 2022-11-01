@@ -3,14 +3,15 @@
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
         <link href="static/css/style.css" rel="stylesheet" />
+        <title>Setup</title>
     </head>
     <body>
         <div id="nescss">
             <header :class="{ sticky: scrollPos > 50 }">
               <div class="container">
                     <div class="nav-brand">
-                        <h1><i class="nes-bcrikko"></i> Stable diffusion - Setup</h1>
-                        <p>This page it's for the setup and download of stable diffusion model from huggingface.</p>
+                        <h1><i class="nes-kirby"></i> Stable diffusion - Setup</h1>
+                        <p>This page it's for the setup and download of stable diffusion model from huggingface. Follow the instructions and complete the huggingface credentials form.</p>
                     </div>
                 </div>
               </div>
@@ -22,21 +23,57 @@
                     
                     <!-- About -->
                     <section class="topic">
-                        <h2 id="about"><a href="#about">#</a>Text generation</h2>
-                        <p>Write an idea or question in the text area and see what BLOOM can generate </p>
-                        <br /><br />
                         
-                        <!-- form with post action -->
-                        <form action="" method="POST">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" class="nes-input">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" class="nes-input">
-                            <label for="token">Token</label>
-                            <input type="password" id="token" name="token" class="nes-input">
-                            
-                            <button type="submit" class="nes-btn is-success">Download Model</button>
-                        </form>
+                        <table>
+                            <tr>
+                                <td>
+                                    <!-- form with post action -->
+                                    <section class="nes-container with-title showcase">
+                                        <h3 class="title">Huggingface Login Info</h3>
+                                            <form action="" method="POST">
+                                                <label for="username">Username</label>
+                                                <input type="text" id="username" name="username" class="nes-input">
+                                                <label for="password">Password</label>
+                                                <input type="password" id="password" name="password" class="nes-input">
+                                                <label for="token">Token</label>
+                                                <input type="password" id="token" name="token" class="nes-input">
+                                                <br /><br />
+                                                <button type="submit" class="nes-btn is-success" onclick="document.getElementById('dialog-default').showModal();">Download Model</button>
+                                                <dialog class="nes-dialog" id="dialog-default">
+                                                    <form method="dialog">
+                                                      <p>This should take 5 minutes, just wait <i class="nes-octocat animate"></i></p>
+                                                    </form>
+                                                  </dialog>
+                                            </form>
+                                        </h3>
+                                    </section>
+                                </td>
+                                <td>
+                                    <section class="message-list">
+                                        <section class="message -left">
+                                          <i class="nes-bcrikko"></i>
+                                          <!-- Balloon -->
+                                          <div class="nes-balloon from-left">
+                                            <p>Sing up into <a href="https://huggingface.co/">Huggingface</a></p>
+                                          </div>
+                                        </section>
+                                    
+                                        <section class="message -right">
+                                          <!-- Balloon -->
+                                          <div class="nes-balloon from-right">
+                                            <p>Accept the terms of <a href="https://huggingface.co/runwayml/stable-diffusion-v1-5">stable diffusion v1.5</a></p>
+                                          </div>
+                                          <i class="nes-bcrikko"></i>
+                                        </section>
+                                        <section class="message -left">
+                                            <i class="nes-bcrikko"></i>
+                                            <!-- Balloon -->
+                                            <div class="nes-balloon from-left">
+                                              <p>Create an <a href="https://huggingface.co/settings/tokens">Access token</a> with the role write</p>
+                                            </div>
+                                          </section>
+                                      </section>
+                                </td>
                     </section>
                 </main>
             </div>
