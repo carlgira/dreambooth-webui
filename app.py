@@ -44,10 +44,10 @@ def home():
             f.write(req.content)
         
         subprocess.run(["sudo", "systemctl", "start", "stabble-diffusion.service"])
-           
+        
         sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token])
         
-        return render_template('index.html')
+        return render_template('index.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Wait other 5 minutes until stable-diffusion-webui loads the model and go to http://localhost:7860')
     
     if not os.path.exists(SD_RAW_MODEL):
         if request.method == 'GET':
