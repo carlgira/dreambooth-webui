@@ -47,7 +47,7 @@ def home():
         
         sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token])
         
-        return render_template('index.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Wait other 5 minutes until stable-diffusion-webui loads the model and go to http://localhost:7860')
+        return render_template('index.html')
     
     if not os.path.exists(SD_RAW_MODEL):
         if request.method == 'GET':
@@ -87,7 +87,7 @@ def home():
             t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
             t.start()
             
-            return render_template('index.html', MESSAGE_TITLE='Training', MESSAGE_CONTENT='Training in progress. You can reload this page to know if the process has ended.', IS_RUNNING=True)
+            return render_template('index.html', MESSAGE_TITLE='Training', MESSAGE_CONTENT='Training in progress', IS_RUNNING=True)
         else:
             return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Training already in progress. You can reload this page to know if the process has ended.', IS_RUNNING=True)
     
