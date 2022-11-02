@@ -6,11 +6,13 @@
         <title>Setup</title>
     </head>
     <body>
+      
         <div id="nescss">
+          
             <header :class="{ sticky: scrollPos > 50 }">
               <div class="container">
                     <div class="nav-brand">
-                        <h1><i class="nes-kirby"></i> Stable diffusion - Setup</h1>
+                        <h1><i class="nes-kirby"></i> Setup</h1>
                         <p>This page it's for the setup and download of stable diffusion model from huggingface. Follow the instructions and complete the huggingface credentials form.</p>
                     </div>
                 </div>
@@ -20,9 +22,16 @@
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <div class="container">
                 <main class="main-content">
-                    
+
                     <!-- About -->
                     <section class="topic">
+
+                      {% if MESSAGE_TITLE %}
+                        <div class="nes-container with-title is-centered is-error">
+                            <p class="title"><span class="nes-text is-error">{{MESSAGE_TITLE}}</span></p>
+                            <p>{{MESSAGE_CONTENT}}</p>
+                          </div>
+                        {% endif %}
                         
                         <table>
                             <tr>

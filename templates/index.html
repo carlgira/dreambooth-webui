@@ -13,6 +13,9 @@
                         <h1><i class="nes-kirby brand-logo"></i>Dreambooth</h1>
                         <p>Train a stable diffusion model to generate new labels based on a small sample of images</p>
                     </div>
+                    <div>
+                        <img src="static/img/wedo-logo.png" width="64" height="64">
+                    </div>
                 </div>
               </div>
             </header>
@@ -29,9 +32,10 @@
 
                         {% if MESSAGE_TITLE %}
                         <div class="nes-container with-title is-centered is-error">
-                            <p class="title">{{MESSAGE_TITLE}}</p>
+                            <p class="title"><span class="nes-text is-error">{{MESSAGE_TITLE}}</span></p>
                             <p>{{MESSAGE_CONTENT}}</p>
                           </div>
+                          <br /><br />
                         {% endif %}
 
                         

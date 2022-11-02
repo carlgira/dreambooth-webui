@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <link href="static/css/style.css" rel="stylesheet" />
+        <title>Wait Room</title>
+    </head>
+    <body>
+        <div id="nescss">
+            <header :class="{ sticky: scrollPos > 50 }">
+              <div class="container">
+                    <div class="nav-brand">
+                        <h1><i class="nes-kirby brand-logo"></i>Wait Room</h1>
+                        <p>Just a wait page for you</p>
+                    </div>
+                    <div>
+                        <img src="static/img/WEDO-192.png" width="64" height="64">
+                    </div>
+                </div>
+              </div>
+            </header>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="container">
+                <main class="main-content">                    
+                    <section class="topic">
+                        <div class="nes-container with-title is-centered is-error">
+                            <p class="title"><span class="nes-text is-success">{{MESSAGE_TITLE}}</span></p>
+                            <p>{{MESSAGE_CONTENT}}</p>
+                          </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>
