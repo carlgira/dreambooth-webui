@@ -97,6 +97,14 @@ def home():
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + instance_name])
             try:
                 unzip = subprocess.run(["unzip", UPLOAD_FOLDER + '/' + filename, '-d' , UPLOAD_FOLDER + '/' + instance_name], check=True)
+                # check that the unzipped file contains only images
+                for file in os.listdir(UPLOAD_FOLDER + '/' + instance_name):
+                    if os.path.isdir(file):
+                        os.rmdir(file)
+                        continue
+                    
+                    if not file.lower().endswith(('.png', '.jpg', '.jpeg')):
+                        return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The zip file contains files that are not images. Images must be in .png, .jpg or .jpeg format')
             except:
                 return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='There was an error while unzipping the file, please check the file and try again.')
             
