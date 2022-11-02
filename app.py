@@ -19,7 +19,6 @@ t = None
 
 # create a flask object
 flask = Flask(__name__)
-flask.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # create a route for the home page
 @flask.route('/', methods=['GET', 'POST'])
