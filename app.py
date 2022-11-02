@@ -25,7 +25,6 @@ flask.config['TEMPLATES_AUTO_RELOAD'] = True
 @flask.route('/', methods=['GET', 'POST'])
 def home():
     global t
-
     # check if directory exists
     if not os.path.exists(CHECK_POINT_PATH_SD):
         
