@@ -27,7 +27,6 @@ def home():
     global t
 
     # check if directory exists
-    '''
     if not os.path.exists(CHECK_POINT_PATH_SD):
         
         if request.method == 'GET':
@@ -69,7 +68,7 @@ def home():
             return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The token is incorrect. Please try again.')
         
         return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.')
-    '''
+
     if request.method == 'POST':
         
         if t is None or not t.is_alive():
