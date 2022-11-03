@@ -19,12 +19,14 @@ t = None
 
 # create a flask object
 flask = Flask(__name__)
+flask.config['TEMPLATES_AUTO_RELOAD'] = True # Debugging
 
 # create a route for the home page
 @flask.route('/', methods=['GET', 'POST'])
 def home():
     global t
     # check if directory exists
+    
     if not os.path.exists(CHECK_POINT_PATH_SD):
         
         if request.method == 'GET':
@@ -52,7 +54,7 @@ def home():
             return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The token is incorrect. Please try again.')
         
         
-        return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.')
+        return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.', COUNTDOWN=300, REDIRECT='"http://localhost:7860"')
     
     if not os.path.exists(SD_RAW_MODEL):
         if request.method == 'GET':
@@ -65,8 +67,8 @@ def home():
         except:
             return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The token is incorrect. Please try again.')
         
-        return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.')
-
+        return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.', COUNTDOWN=300, REDIRECT='"http://localhost:7860"')
+    
     if request.method == 'POST':
         
         if t is None or not t.is_alive():
@@ -96,13 +98,20 @@ def home():
                 unzip = subprocess.run(["unzip", UPLOAD_FOLDER + '/' + filename, '-d' , UPLOAD_FOLDER + '/' + instance_name], check=True)
                 # check that the unzipped file contains only images
                 for file in os.listdir(UPLOAD_FOLDER + '/' + instance_name):
-                    if os.path.isdir(file):
-                        os.rmdir(file)
+                    file_path = UPLOAD_FOLDER + '/' + instance_name + '/' + file
+                    if os.path.isdir(file_path):
+                        os.rmdir(file_path)
+                        continue
+                    
+                    # check if hidden file
+                    if file[0] == '.': 
+                        os.remove(file_path)
                         continue
                     
                     if not file.lower().endswith(('.png', '.jpg', '.jpeg')):
                         return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The zip file contains files that are not images. Images must be in .png, .jpg or .jpeg format')
-            except:
+            except Exception as e:
+                print(e)
                 return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='There was an error while unzipping the file, please check the file and try again.')
             
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + filename])
@@ -110,14 +119,14 @@ def home():
             # call train_model function in a new thread
             t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
             t.start()
-            
-            return redirect('/')
+
+            return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour.', COUNTDOWN=4500, REDIRECT='"http://localhost:7860"')
         else:
-            return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Training already in progress, it should take an hour. You can reload this page to know if the process has ended.', IS_RUNNING=True)
+            return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour.', COUNTDOWN=4500, REDIRECT='"http://localhost:7860"')
     
     if request.method == 'GET':
         if t is not None and t.is_alive():
-            return render_template('index.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour. You can reload this page to know if the process has ended.', IS_RUNNING=True)
+            return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour.', COUNTDOWN=4500, REDIRECT='"http://localhost:7860"')
     
     return render_template('index.html')
 

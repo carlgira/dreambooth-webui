@@ -3,6 +3,7 @@
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
         <link href="static/css/style.css" rel="stylesheet" />
+        <script src="static/js/countdown.js"></script>
         <title>Wait Room</title>
     </head>
     <body>
@@ -14,7 +15,7 @@
                         <p>Just a wait page for you</p>
                     </div>
                     <div>
-                        <img src="static/img/WEDO-192.png" width="64" height="64">
+                        <img src="static/img/wedo-logo.png" width="64" height="64">
                     </div>
                 </div>
               </div>
@@ -27,9 +28,18 @@
                         <div class="nes-container with-title is-centered is-error">
                             <p class="title"><span class="nes-text is-success">{{MESSAGE_TITLE}}</span></p>
                             <p>{{MESSAGE_CONTENT}}</p>
+                            {% if COUNTDOWN %}
+                            <div id='tiles' class="tilenumber"></div>
+                            <script>
+                                startCountdown({{COUNTDOWN}}, {{REDIRECT | safe}});
+                            </script>
+                            {% endif %}
                           </div>
                     </section>
                 </main>
+                <br/>
+                
+
             </div>
         </div>
     </body>
