@@ -39,6 +39,19 @@ def home():
         try:
             # download the model from the server and use basic authentication with the username and password
             req = requests.get(SD_URL, auth=(username, password))
+            
+            
+            # check if the request is successful
+            if req.status_code == 401:
+                return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Your credentials are incorrect. Please try again.')
+            
+            # check if the request is successful
+            if req.status_code == 403:
+                return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Please accept the conditions of use for the model. Go to https://huggingface.co/runwayml/stable-diffusion-v1-5')
+
+            if req.status_code >= 500:
+                return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Unexpect error occured. Please try again later.')
+                
             # save the model in the current directory
             with open(CHECK_POINT_PATH_SD, 'wb') as f:
                 f.write(req.content)
