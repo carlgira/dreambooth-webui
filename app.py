@@ -131,7 +131,7 @@ def home():
                 for file in os.listdir(UPLOAD_FOLDER + '/' + instance_name):
                     file_path = UPLOAD_FOLDER + '/' + instance_name + '/' + file
                     if os.path.isdir(file_path):
-                        os.rmdir(file_path)
+                        subprocess.run(["rm", "-rf", file_path])
                         continue
                     
                     # check if hidden file
@@ -142,7 +142,7 @@ def home():
                     if not file.lower().endswith(('.png', '.jpg', '.jpeg')):
                         return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts['error_zip_contains_other_files'])
             except Exception as e:
-                print(e)
+                subprocess.run(["echo", str(e)])
                 return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_unzip"])
             
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + filename])
