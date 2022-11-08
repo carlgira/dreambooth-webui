@@ -43,8 +43,8 @@ flask = Flask(__name__)
 @flask.route('/', methods=['GET', 'POST'])
 def home():
     global t
+    
     # check if directory exists
-    '''
     if not os.path.exists(CHECK_POINT_PATH_SD):
         
         if request.method == 'GET':
@@ -99,7 +99,7 @@ def home():
             return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_token"])
         
         return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts["ok_download"], COUNTDOWN=texts["download_waiting_time"], REDIRECT='"http://localhost:7860"')
-    '''
+    
     if request.method == 'POST':
         
         if t is None or not t.is_alive():
@@ -148,8 +148,8 @@ def home():
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + filename])
 
             # call train_model function in a new thread
-            #t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
-            #t.start()
+            t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
+            t.start()
 
             return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
         else:
