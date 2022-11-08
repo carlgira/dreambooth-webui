@@ -2,3 +2,7 @@ flask
 requests
 werkzeug
 transformers
+OmegaConf 
+accelerate==0.13.2 
+triton 
+bitsandbytes
