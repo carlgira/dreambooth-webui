@@ -9,28 +9,46 @@ import subprocess
 from train import train_model
 from werkzeug.utils import secure_filename
 import threading
+import glob
+import json
 
-
-CHECK_POINT_PATH_SD = '/home/ubuntu/stable-diffusion-webui/model.ckpt'
-SD_RAW_MODEL = '/home/ubuntu/dreambooth/models/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
+WORK_DIR = os.environ['install_dir']
+CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
+SD_RAW_MODEL = WORK_DIR + '/dreambooth/models/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
-UPLOAD_FOLDER = '/home/ubuntu/dreambooth/data'
+UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
 t = None
+
+INDEX_PAGE='index.html'
+SETUP_PAGE='setup.html'
+MESSAGES_PAGE='messages.html'
+
+languages = {}
+language = 'en_US'
+
+language_list = glob.glob("language/*.json")
+for lang in language_list:
+    filename = lang.split('/')[1]
+    lang_code = filename.split('.')[0]
+    with open(lang, 'r', encoding='utf8') as file:
+        languages[lang_code] = json.loads(file.read())
+
+texts = languages[language]
 
 # create a flask object
 flask = Flask(__name__)
-flask.config['TEMPLATES_AUTO_RELOAD'] = True # Debugging
+# flask.config['TEMPLATES_AUTO_RELOAD'] = True # Debugging
 
 # create a route for the home page
 @flask.route('/', methods=['GET', 'POST'])
 def home():
     global t
     # check if directory exists
-    
+    '''
     if not os.path.exists(CHECK_POINT_PATH_SD):
         
         if request.method == 'GET':
-            return render_template('setup.html')
+            return render_template(SETUP_PAGE)
         
         username = request.form['username']
         password = request.form['password']
@@ -43,45 +61,45 @@ def home():
             
             # check if the request is successful
             if req.status_code == 401:
-                return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Your credentials are incorrect. Please try again.')
+                return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
             
-            # check if the request is successful
+            # check if the request is successful 
             if req.status_code == 403:
-                return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Please accept the conditions of use for the model. Go to https://huggingface.co/runwayml/stable-diffusion-v1-5')
+                return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_accept_conditions"])
 
             if req.status_code >= 500:
-                return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Unexpect error occured. Please try again later.')
+                return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_unexpected"])
                 
             # save the model in the current directory
             with open(CHECK_POINT_PATH_SD, 'wb') as f:
                 f.write(req.content)
         except:
-            return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='Your credentials are incorrect. Please try again.')
+            return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
         
         subprocess.run(["sudo", "systemctl", "start", "stabble-diffusion.service"])
         
         
         try:
-            sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token], check=True)            
+            sd_model = subprocess.run(["sh", WORK_DIR + "/dreambooth-webui/setup-stable-diffusion.sh", token], check=True)            
         except:
-            return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The token is incorrect. Please try again.')
+            return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_token"])
         
         
-        return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.', COUNTDOWN=300, REDIRECT='"http://localhost:7860"')
+        return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts["ok_download"], COUNTDOWN=texts["download_waiting_time"], REDIRECT='"http://localhost:7860"')
     
     if not os.path.exists(SD_RAW_MODEL):
         if request.method == 'GET':
-            return render_template('setup.html')
+            return render_template(SETUP_PAGE)
         
         token = request.form['token']
         
         try:
-            sd_model = subprocess.run(["sh", "/home/ubuntu/dreambooth-webui/setup-stable-diffusion.sh", token], check=True)            
+            sd_model = subprocess.run(["sh", WORK_DIR + "/dreambooth-webui/setup-stable-diffusion.sh", token], check=True)            
         except:
-            return render_template('setup.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The token is incorrect. Please try again.')
+            return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_token"])
         
-        return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready.', COUNTDOWN=300, REDIRECT='"http://localhost:7860"')
-    
+        return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts["ok_download"], COUNTDOWN=texts["download_waiting_time"], REDIRECT='"http://localhost:7860"')
+    '''
     if request.method == 'POST':
         
         if t is None or not t.is_alive():
@@ -94,16 +112,16 @@ def home():
             seed = request.form['seed']
             
             if 'images' not in request.files:
-                return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='No zip file uploaded')
+                return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_no_zip_file"])
             file = request.files['images']
             if file.filename == '':
-                return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='No zip file uploaded')
+                return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_no_zip_file"])
             
             filename = secure_filename(file.filename)
             try:
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
             except:
-                return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The zip file could not be saved')
+                return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT='The zip file could not be saved')
             
             # unzip the file
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + instance_name])
@@ -122,26 +140,26 @@ def home():
                         continue
                     
                     if not file.lower().endswith(('.png', '.jpg', '.jpeg')):
-                        return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='The zip file contains files that are not images. Images must be in .png, .jpg or .jpeg format')
+                        return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts['error_zip_contains_other_files'])
             except Exception as e:
                 print(e)
-                return render_template('index.html', MESSAGE_TITLE='Error', MESSAGE_CONTENT='There was an error while unzipping the file, please check the file and try again.')
+                return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_unzip"])
             
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + filename])
 
             # call train_model function in a new thread
-            t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
-            t.start()
+            #t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
+            #t.start()
 
-            return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour.', COUNTDOWN=4500, REDIRECT='"http://localhost:7860"')
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
         else:
-            return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour.', COUNTDOWN=4500, REDIRECT='"http://localhost:7860"')
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
     
     if request.method == 'GET':
         if t is not None and t.is_alive():
-            return render_template('messages.html', MESSAGE_TITLE='Information', MESSAGE_CONTENT='Training already in progress, it should take an hour.', COUNTDOWN=4500, REDIRECT='"http://localhost:7860"')
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
     
-    return render_template('index.html')
+    return render_template(INDEX_PAGE)
 
 
 # run the flask app

@@ -1,5 +1,6 @@
 HF_TOKEN=$1
-WORK_DIR=/home/ubuntu/dreambooth
+INSTALL_DIR="/home/$(whoami)"
+WORK_DIR=$INSTALL_DIR/dreambooth
 cd $WORK_DIR/models/stable-diffusion-v1-5
 git init
 git lfs install --system --skip-repo

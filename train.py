@@ -4,7 +4,7 @@ from subprocess import getoutput
 import subprocess as subp
 import os
 
-HOME_DIR = '/home/ubuntu'
+HOME_DIR = os.environ['install_dir']
 WORK_DIR = HOME_DIR + '/dreambooth'
 MODEL_NAME = HOME_DIR + "/stable-diffusion-webui/model.ckpt"
 SD_MODEL_PATH = WORK_DIR + '/models/stable-diffusion-v1-5'
@@ -86,7 +86,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
 
 
 
-    command = "/home/ubuntu/.local/bin/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
+    command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
                     Caption + ' ' + \
                     '--save_starting_step={0}'.format(stpsv) + ' ' + \
                     '--save_n_steps={0}'.format(stp) + ' ' + \
