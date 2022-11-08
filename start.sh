@@ -133,7 +133,6 @@ if [[ "$first_launch" -eq 1 ]]; then
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-blonde_woman.git $WORK_DIR/data/blonde_woman
 
     pip3 install git+https://github.com/TheLastBen/diffusers
-    pip3 install  OmegaConf accelerate==0.13.2 triton bitsandbytes
     CUDA_HOME=/usr/local/cuda pip3 install xformers==0.0.13
     pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
     pip3 install https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/linux/xformers-0.0.14.dev0-cp310-cp310-linux_x86_64.whl
