@@ -123,20 +123,20 @@ if [[ "$first_launch" -eq 1 ]]; then
     mkdir -p $WORK_DIR/data
     mkdir -p $WORK_DIR/output
 
-    #wget -O $WORK_DIR/convertosd.py https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dreambooth/convertosd.py
-    #git clone https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
+    wget -O $WORK_DIR/convertosd.py https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dreambooth/convertosd.py
+    git clone https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
 
-    #git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-person_ddim.git $WORK_DIR/data/person_ddim
-    #git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_euler.git $WORK_DIR/data/man_euler
-    #git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_unsplash.git $WORK_DIR/data/man_unsplash
-    #git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-woman_ddim.git $WORK_DIR/data/woman_ddim
-    #git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-blonde_woman.git $WORK_DIR/data/blonde_woman
+    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-person_ddim.git $WORK_DIR/data/person_ddim
+    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_euler.git $WORK_DIR/data/man_euler
+    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_unsplash.git $WORK_DIR/data/man_unsplash
+    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-woman_ddim.git $WORK_DIR/data/woman_ddim
+    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-blonde_woman.git $WORK_DIR/data/blonde_woman
 
-    #pip3 install git+https://github.com/TheLastBen/diffusers
-    #pip3 install  OmegaConf accelerate==0.13.2 triton bitsandbytes
-    #CUDA_HOME=/usr/local/cuda pip3 install xformers==0.0.13
-    #pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
-    #pip3 install https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/linux/xformers-0.0.14.dev0-cp310-cp310-linux_x86_64.whl
+    pip3 install git+https://github.com/TheLastBen/diffusers
+    pip3 install  OmegaConf accelerate==0.13.2 triton bitsandbytes
+    CUDA_HOME=/usr/local/cuda pip3 install xformers==0.0.13
+    pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
+    pip3 install https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/linux/xformers-0.0.14.dev0-cp310-cp310-linux_x86_64.whl
 
     # Horrible FIX to avoid problem with CUDA_VISIBLE_DEVICES
     SITE_PACKAGES=$($python_cmd -c "import site; print(site.getsitepackages()[0])")
