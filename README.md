@@ -1,7 +1,7 @@
 # dreambooth-webui
 Simple webui to setup and train dreambooth for stable diffusion.
 
-Tested on a ubuntu 22.04 where the https://github.com/AUTOMATIC1111/stable-diffusion-webui its also installed.
+Tested on a ubuntu 22.04 where the https://github.com/AUTOMATIC1111/stable-diffusion-webui its also installed and running in http://localhost:7860.
 
 ## Requirements
 - You need to have installed some dependencies
