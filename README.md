@@ -37,6 +37,7 @@ EOT
 
 systemctl daemon-reload
 systemctl enable dreambooth.service
+systemctl start dreambooth
 ```
 
 ## Test
