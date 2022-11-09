@@ -16,7 +16,7 @@ git clone https://github.com/carlgira/dreambooth-webui
 ```
 
 ## Install & Run
-To install and run dreambooth you need to execute the start script. It will check for the dependencies, create a python env, install the dependencies and run the flask server.
+To install and run dreambooth you need to execute the start script. It will check for the requirements, create a python env, install the dependencies and run the flask server.
 ```
 sh start.sh
 ```
