@@ -66,7 +66,7 @@ Go to http://localhost:3000, it has several inputs, but most of them you can lea
 
 Most of the time you only need two inputs: the **instance name** as a unique label to identify the thing or person you want to to train the model, and a **zip file** with the set of images you are going to use. (copy that label somewhere because you are going to needed for later)
 
-Make sure that your images comply with this conditions:
+In case you want to use it on yourself, make sure that your images comply with the next conditions:
 - All images must be 512 x 512
 - Make sure you are alone in the pictures
 - Have different clothing
