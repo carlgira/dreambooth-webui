@@ -119,7 +119,8 @@ fi
 
 if [[ "$first_launch" -eq 1 ]]; then
     "${pip_cmd}" install -r requirements.txt
-    mkdir -p $WORK_DIR/models/stable-diffusion-v1-5
+    mkdir -p $WORK_DIR/stable-diffusion-v1-5
+    mkdir -p $WORK_DIR/models/stable-diffusion
     mkdir -p $WORK_DIR/data
     mkdir -p $WORK_DIR/output
 

@@ -14,7 +14,7 @@ import json
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
-SD_RAW_MODEL = WORK_DIR + '/dreambooth/models/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
+SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
 t = None
@@ -58,7 +58,6 @@ def home():
             # download the model from the server and use basic authentication with the username and password
             req = requests.get(SD_URL, auth=(username, password))
             
-            
             # check if the request is successful
             if req.status_code == 401:
                 return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
@@ -73,6 +72,9 @@ def home():
             # save the model in the current directory
             with open(CHECK_POINT_PATH_SD, 'wb') as f:
                 f.write(req.content)
+            
+            # copy file to the dreambooth folder
+            os.copyfile(CHECK_POINT_PATH_SD, WORK_DIR + '/models/stable-diffusion/model.ckpt')
         except:
             return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
         

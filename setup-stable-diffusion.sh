@@ -1,5 +1,6 @@
 HF_TOKEN=$1
 INSTALL_DIR="/home/$(whoami)"
+set -e
 WORK_DIR=$INSTALL_DIR/dreambooth
 cd $WORK_DIR/models/stable-diffusion-v1-5
 git init

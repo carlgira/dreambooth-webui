@@ -2,6 +2,21 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <script>
+          // Validate that all the fields are filled out
+          function validateForm() {
+            if (document.forms["form"]["username"].value == "" || document.forms["form"]["password"].value == "" || document.forms["form"]["token"].value == "") {
+              document.getElementById('dialog-validation').showModal();
+              return false;
+            }
+            else {
+              document.getElementById('dialog-waiting').showModal();
+              return true;
+            }
+          }
+
+        </script>
+
         <link href="static/css/style.css" rel="stylesheet" />
         <title>Setup</title>
     </head>
@@ -39,20 +54,29 @@
                                     <!-- form with post action -->
                                     <section class="nes-container with-title showcase">
                                         <h3 class="title">Huggingface Login Info</h3>
-                                            <form action="" method="POST">
+                                            <form name="form" action="" method="POST" onsubmit="return validateForm();">
                                                 <label for="username">Username</label>
-                                                <input type="text" id="username" name="username" class="nes-input" required>
+                                                <input type="text" id="username" name="username" class="nes-input">
                                                 <label for="password">Password</label>
-                                                <input type="password" id="password" name="password" class="nes-input" required>
+                                                <input type="password" id="password" name="password" class="nes-input">
                                                 <label for="token">Token</label>
-                                                <input type="password" id="token" name="token" class="nes-input" required>
+                                                <input type="password" id="token" name="token" class="nes-input">
                                                 <br /><br />
-                                                <button type="submit" class="nes-btn is-success" onclick="document.getElementById('dialog-default').showModal();">Download Model</button>
-                                                <dialog class="nes-dialog" id="dialog-default">
+                                                <button type="submit" class="nes-btn is-success">Download Model</button>
+                                                <dialog class="nes-dialog" id="dialog-waiting">
                                                     <form method="dialog">
                                                       <p>This should take 5 minutes, just wait <i class="nes-octocat animate"></i></p>
                                                     </form>
-                                                  </dialog>
+                                                </dialog>
+                                                <dialog class="nes-dialog is-rounded" id="dialog-validation">
+                                                  <form method="dialog">
+                                                    <p class="title">Validation Error</p>
+                                                    <p>Fill all the fields to submit form</p>
+                                                    <menu class="dialog-menu">
+                                                      <button class="nes-btn is-error">Confirm</button>
+                                                    </menu>
+                                                  </form>
+                                                </dialog>
                                             </form>
                                         </h3>
                                     </section>
