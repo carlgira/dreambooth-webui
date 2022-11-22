@@ -1,7 +1,8 @@
 HF_TOKEN=$1
 INSTALL_DIR="/home/$(whoami)"
 WORK_DIR=$INSTALL_DIR/dreambooth
-cd $WORK_DIR/models/stable-diffusion-v1-5
+set -e
+cd $WORK_DIR/stable-diffusion-v1-5
 git init
 git lfs install --system --skip-repo
 git remote add -f origin "https://USER:$HF_TOKEN@huggingface.co/runwayml/stable-diffusion-v1-5"

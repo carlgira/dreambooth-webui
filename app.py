@@ -14,7 +14,7 @@ import json
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
-SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
+SD_RAW_MODEL = WORK_DIR + '/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
 t = None
