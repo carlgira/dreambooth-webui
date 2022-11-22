@@ -73,10 +73,8 @@ def home():
             with open(CHECK_POINT_PATH_SD, 'wb') as f:
                 f.write(req.content)
             
-            # copy file to the dreambooth folder
-            os.copyfile(CHECK_POINT_PATH_SD, WORK_DIR + '/models/stable-diffusion/model.ckpt')
-            
-            #subprocess.run(["cp", CHECK_POINT_PATH_SD, WORK_DIR + '/models/stable-diffusion/model.ckpt'], check=True)            
+            # copy file to the dreambooth folder            
+            subprocess.run(["cp", CHECK_POINT_PATH_SD, WORK_DIR + '/models/stable-diffusion/model.ckpt'], check=True)            
         except:
             return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
         
