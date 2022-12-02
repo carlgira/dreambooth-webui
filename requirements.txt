@@ -10,5 +10,5 @@ OmegaConf==2.2.3
 accelerate==0.13.2 
 triton==2.0.0.dev20221105
 bitsandbytes==0.35.4
-git+https://github.com/TheLastBen/diffusers@9d08993f106b19e2fe8216ab9fe3d19c57963e57
+git+https://github.com/TheLastBen/diffusers@08a6dc8a5840e0cc09e65e71e9647321ab9bb254
 https://github.com/TheLastBen/fast-stable-diffusion/raw/main/precompiled/P100/xformers-0.0.13.dev0-py3-none-any.whl
