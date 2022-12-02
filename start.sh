@@ -136,8 +136,6 @@ if [[ "$first_launch" -eq 1 ]]; then
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-woman_ddim.git $WORK_DIR/data/woman_ddim
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-blonde_woman.git $WORK_DIR/data/blonde_woman
 
-    CUDA_HOME=/usr/local/cuda pip3 install xformers==0.0.13
-
     # Horrible FIX to avoid problem with CUDA_VISIBLE_DEVICES
     SITE_PACKAGES=$($python_cmd -c "import site; print(site.getsitepackages()[0])")
     sed -i '375s/args.gpu_ids/\"0\"/g' $SITE_PACKAGES/accelerate/commands/launch.py
