@@ -125,10 +125,7 @@ if [[ "$first_launch" -eq 1 ]]; then
     mkdir -p $WORK_DIR/output
 
     wget -O $WORK_DIR/convertosd.py https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dreambooth/convertosd.py
-    git clone https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
-    cd $WORK_DIR/diffusers
-    git checkout 08a6dc8a5840e0cc09e65e71e9647321ab9bb254
-    cd -
+    git clone --branch updt https://github.com/TheLastBen/diffusers
     
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-person_ddim.git $WORK_DIR/data/person_ddim
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_euler.git $WORK_DIR/data/man_euler
