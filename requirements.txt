@@ -11,4 +11,4 @@ accelerate==0.13.2
 triton==2.0.0.dev20221105
 bitsandbytes==0.35.4
 git+https://github.com/TheLastBen/diffusers@9d08993f106b19e2fe8216ab9fe3d19c57963e57
-https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/linux/xformers-0.0.14.dev0-cp310-cp310-linux_x86_64.whl
+https://github.com/TheLastBen/fast-stable-diffusion/raw/main/precompiled/P100/xformers-0.0.13.dev0-py3-none-any.whl
