@@ -75,7 +75,7 @@ def home():
         except:
             return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
         
-        subprocess.run(["sudo", "systemctl", "start", "stabble-diffusion.service"])
+        subprocess.run(["sudo", "systemctl", "start", "stable-diffusion.service"])
         
         
         try:
