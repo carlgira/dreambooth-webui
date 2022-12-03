@@ -5,7 +5,7 @@ certifi==2022.9.24
 charset-normalizer==2.1.1
 click==8.1.3
 cmake==3.24.3
-git+https://github.com/TheLastBen/diffusers@9d08993f106b19e2fe8216ab9fe3d19c57963e57
+git+https://github.com/TheLastBen/diffusers@f3f4fcbc3702e904202ea6c7d71fe935afa29318
 filelock==3.8.0
 Flask==2.2.2
 huggingface-hub==0.10.1
