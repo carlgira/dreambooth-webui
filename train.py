@@ -112,7 +112,9 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--center_crop' + ' ' + \
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
                     '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' >out.txt 2>out.txt'
-
+    
+    getoutput("sudo systemctl stop stable-diffusion.service")
+    
     o = getoutput(command)
     
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
@@ -125,6 +127,6 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     getoutput("python3 {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
     
     getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME))
-    getoutput("sudo systemctl restart stable-diffusion.service")
+    getoutput("sudo systemctl start stable-diffusion.service")
     
     
