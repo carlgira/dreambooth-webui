@@ -8,11 +8,11 @@
     "error_no_zip_file": "No zip file uploaded",
     "error_wrong_token": "The token is incorrect. Please try again.",
     "error_wrong_credentials" : "The credentials are incorrect. Please try again.",
-    "error_accept_conditions" : "Please accept the conditions of use for the model, https://huggingface.co/runwayml/stable-diffusion-v1-5",
+    "error_accept_conditions" : "Please accept the conditions of use for the model, https://huggingface.co/stabilityai/stable-diffusion-2",
     "error_unexpected" : "An unexpected error occurred. Please try again later.",
     
-    "ok_download": "The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready." ,
-    "download_waiting_time" : 300
+    "ok_download": "The model has been downloaded successfully. Now you have to wait 30 seconds for the web app to be ready." ,
+    "download_waiting_time" : 30
 
 
 

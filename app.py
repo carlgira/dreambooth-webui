@@ -13,9 +13,11 @@ import glob
 import json
 
 WORK_DIR = os.environ['install_dir']
-CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
-SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
-SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
+CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/models/Stable-diffusion/model.ckpt'
+CONFIG_PATH_SD = WORK_DIR + '/stable-diffusion-webui/models/Stable-diffusion/model.yaml'
+SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion/unet/diffusion_pytorch_model.bin'
+SD_URL = 'https://huggingface.co/stabilityai/stable-diffusion-2/resolve/main/768-v-ema.ckpt'
+SD_CONFIG = 'https://raw.githubusercontent.com/Stability-AI/stablediffusion/main/configs/stable-diffusion/v2-inference-v.yaml'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
 t = None
 
@@ -57,6 +59,7 @@ def home():
         try:
             # download the model from the server and use basic authentication with the username and password
             req = requests.get(SD_URL, auth=(username, password))
+            req_config = requests.get(SD_CONFIG, auth=(username, password))
             
             # check if the request is successful
             if req.status_code == 401:
@@ -72,6 +75,10 @@ def home():
             # save the model in the current directory
             with open(CHECK_POINT_PATH_SD, 'wb') as f:
                 f.write(req.content)
+            
+            with open(CONFIG_PATH_SD, 'wb') as f:
+                f.write(req_config.content)
+            
         except:
             return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
         

@@ -40,7 +40,7 @@ fi
 # python3 venv without trailing slash (defaults to ${install_dir}/${clone_dir}/venv)
 if [[ -z "${venv_dir}" ]]
 then
-    venv_dir="venv"
+    venv_dir=".venv"
 fi
 
 
@@ -119,7 +119,7 @@ fi
 
 if [[ "$first_launch" -eq 1 ]]; then
     "${pip_cmd}" install -r requirements.txt
-    mkdir -p $WORK_DIR/stable-diffusion-v1-5
+    mkdir -p $WORK_DIR/stable-diffusion
     mkdir -p $WORK_DIR/models/stable-diffusion
     mkdir -p $WORK_DIR/data
     mkdir -p $WORK_DIR/output

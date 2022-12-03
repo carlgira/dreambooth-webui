@@ -46,7 +46,7 @@ systemctl start dreambooth
 The first step is to download the stable-diffusion model, for that, is necessary to have a huggingface account, create a token and accept to the conditions to use stable-diffusion.
 
 1. Go to https://huggingface.co and create an account.
-2. Go to https://huggingface.co/runwayml/stable-diffusion-v1-5 and accept the terms and conditions.
+2. Go to https://huggingface.co/stabilityai/stable-diffusion-2 and accept the terms and conditions.
 3. Create an "Access token".
     - Open your **Profile**
     - Go to **Settings**
