@@ -88,8 +88,6 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
 
     command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
                     Caption + ' ' + \
-                    '--save_starting_step={0}'.format(stpsv) + ' ' + \
-                    '--save_n_steps={0}'.format(stp) + ' ' + \
                     '--train_text_encoder' + ' ' + \
                     '--pretrained_model_name_or_path="{0}"'.format(SD_MODEL_PATH) + ' ' + \
                     '--instance_data_dir="{0}"'.format(INSTANCE_DIR) + ' ' + \
