@@ -115,7 +115,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     
     o = getoutput(command)
     
-    getoutput( os.getenv("venv_bin_dir") + "/python {WORK_DIR}/convert_diffusers_to_original_stable_diffusion.py --model_path {WEIGHTS_DIR}  --checkpoint_path {CHECKPOINT_PATH} --half".format(WORK_DIR=WORK_DIR, WEIGHTS_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME))
+    getoutput( os.getenv("venv_bin_dir") + "/python {WORK_DIR}/convert_diffusers_to_original_stable_diffusion.py --model_path {WEIGHTS_DIR}  --checkpoint_path {CHECKPOINT_PATH} --half".format(WORK_DIR=WORK_DIR, WEIGHTS_DIR=OUTPUT_DIR + "/" +  str(Training_Steps), CHECKPOINT_PATH=NEW_MODEL_NAME))
     
     getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME))
     getoutput("sudo systemctl start stable-diffusion")
