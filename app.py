@@ -45,7 +45,6 @@ flask = Flask(__name__)
 # create a route for the home page
 @flask.route('/', methods=['GET', 'POST'])
 def home():
-    global t
     
     # check if directory exists
     if not os.path.exists(CHECK_POINT_PATH_SD):
@@ -170,7 +169,7 @@ def home():
     
     return render_template(INDEX_PAGE)
 
-@flask.route('/training_log')
+@flask.route('/log')
 def stream():
     def generate():
         with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
