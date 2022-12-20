@@ -169,7 +169,7 @@ def home():
     
     return render_template(INDEX_PAGE)
 
-@flask.route('/log')
+@flask.route('/stream')
 def stream():
     def generate():
         with open(WORK_DIR + "/dreambooth-webui/output.log") as f:

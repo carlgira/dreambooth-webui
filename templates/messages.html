@@ -38,7 +38,7 @@
                                 var output = document.getElementById('training_log');
                             
                                 var xhr = new XMLHttpRequest();
-                                xhr.open('GET', '{{ url_for('log') }}');
+                                xhr.open('GET', '{{ url_for('stream') }}');
                                 xhr.send();
                             
                                 setInterval(function() {
