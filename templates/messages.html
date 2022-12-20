@@ -35,13 +35,12 @@
                             </script>
                             {% endif %}
                             <script>
-                                var output = document.getElementById('log');
-                            
                                 var xhr = new XMLHttpRequest();
                                 xhr.open('GET', '{{ url_for('stream') }}');
                                 xhr.send();
                             
                                 setInterval(function() {
+                                    var output = document.getElementById('log');
                                     output.textContent = xhr.responseText;
                                 }, 1000);
                             </script>
