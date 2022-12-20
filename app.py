@@ -11,6 +11,8 @@ from werkzeug.utils import secure_filename
 import threading
 import glob
 import json
+from subprocess import getoutput
+from time import sleep
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/models/Stable-diffusion/model.ckpt'
@@ -19,7 +21,6 @@ SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion/unet/diffusion_pytorch_m
 SD_URL = 'https://huggingface.co/stabilityai/stable-diffusion-2-1-base/blob/main/v2-1_512-ema-pruned.ckpt'
 SD_CONFIG = 'https://raw.githubusercontent.com/Stability-AI/stablediffusion/main/configs/stable-diffusion/v2-inference.yaml'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
-t = None
 
 INDEX_PAGE='index.html'
 SETUP_PAGE='setup.html'
@@ -108,7 +109,7 @@ def home():
     
     if request.method == 'POST':
         
-        if t is None or not t.is_alive():
+        if not is_training_running():
             # call the train_model function from train.py
             training_subject = request.form['training_subject']
             subject_type = request.form['subject_type']
@@ -156,10 +157,12 @@ def home():
             # call train_model function in a new thread
             t = threading.Thread(target=train_model, args=(training_subject, subject_type, instance_name, class_dir, training_steps, seed))
             t.start()
+            
+            
 
-            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], REDIRECT='"http://localhost:7860"')
         else:
-            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], REDIRECT='"http://localhost:7860"')
     
     if request.method == 'GET':
         if t is not None and t.is_alive():
@@ -167,7 +170,21 @@ def home():
     
     return render_template(INDEX_PAGE)
 
+@flask.route('/training_log')
+def stream():
+    def generate():
+        with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
+            while True:
+                yield f.read()
+                sleep(1)
 
+    return flask.response_class(generate(), mimetype='text/plain')
+
+
+def is_training_running():
+    output = getoutput("ps -ef | grep accelerate | grep -v grep")
+    return len(output) > 0
+    
 # run the flask app
 if __name__ == '__main__':
     flask.run(debug=True, port=3000)

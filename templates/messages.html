@@ -34,6 +34,19 @@
                                 startCountdown({{COUNTDOWN}}, {{REDIRECT | safe}});
                             </script>
                             {% endif %}
+                            <script>
+                                var output = document.getElementById('training_log');
+                            
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('GET', '{{ url_for('training_log') }}');
+                                xhr.send();
+                            
+                                setInterval(function() {
+                                    output.textContent = xhr.responseText;
+                                }, 1000);
+                            </script>
+                            <label for="training_log">Training log</label>
+                            <textarea id="training_log" name="training_log" class="nes-textarea"></textarea>
                           </div>
                     </section>
                 </main>
