@@ -165,8 +165,8 @@ def home():
             return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], REDIRECT='"http://localhost:7860"')
     
     if request.method == 'GET':
-        if t is not None and t.is_alive():
-            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts['training_time'], REDIRECT='"http://localhost:7860"')
+        if is_training_running():
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], REDIRECT='"http://localhost:7860"')
     
     return render_template(INDEX_PAGE)
 
