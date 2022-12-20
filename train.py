@@ -88,6 +88,8 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
 
     command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
                     Caption + ' ' + \
+                    '--save_starting_step={0}'.format(stpsv) + ' ' + \
+                    '--save_n_steps={0}'.format(stp) + ' ' + \
                     '--train_text_encoder' + ' ' + \
                     '--pretrained_model_name_or_path="{0}"'.format(SD_MODEL_PATH) + ' ' + \
                     '--instance_data_dir="{0}"'.format(INSTANCE_DIR) + ' ' + \
@@ -115,7 +117,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     
     o = getoutput(command)
     
-    getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR + "/" + str(Training_Steps), WORK_DIR=WORK_DIR))
+    getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 
     getoutput("sed -i '202s@.*@    checkpoint_path= \"{CHECKPOINT_PATH}\"@' {WORK_DIR}/convertosd_mod.py".format(CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR))
 
