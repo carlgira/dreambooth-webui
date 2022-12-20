@@ -109,7 +109,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--lr_warmup_steps=0' + ' ' + \
                     '--center_crop' + ' ' + \
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
-                    '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' ' + '2>/home/ubuntu/dreambooth/output/train.log >/home/ubuntu/dreambooth/output/train.log'
+                    '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' 2>output.log >output.log'
 
     getoutput("sudo systemctl stop stable-diffusion")
     
