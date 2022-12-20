@@ -174,7 +174,8 @@ def stream():
     def generate():
         with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
             while True:
-                yield f.read()
+                last_line = f.readlines()[-1]
+                yield last_line
                 sleep(1)
 
     return flask.response_class(generate(), mimetype='text/plain')
