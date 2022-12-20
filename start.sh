@@ -124,8 +124,8 @@ if [[ "$first_launch" -eq 1 ]]; then
     mkdir -p $WORK_DIR/data
     mkdir -p $WORK_DIR/output
 
-    wget -O $WORK_DIR/convert_diffusers_to_original_stable_diffusion.py https://github.com/ShivamShrirao/diffusers/raw/main/scripts/convert_diffusers_to_original_stable_diffusion.py
-    wget -O $WORK_DIR/train_dreambooth.py https://github.com/ShivamShrirao/diffusers/raw/main/examples/dreambooth/train_dreambooth.py
+    wget -O $WORK_DIR/convertosd.py https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dreambooth/convertosd.py
+    git clone --branch updt https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
 
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-person_ddim.git $WORK_DIR/data/person_ddim
     git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_euler.git $WORK_DIR/data/man_euler
