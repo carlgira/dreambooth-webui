@@ -173,8 +173,9 @@ def home():
 def stream():
     def generate():
         with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
-            while True:
-                last_line = f.readlines()[-1]
+            content = f.readlines()
+            if len(content) > 0:
+                last_line = content[-1]
                 yield last_line
                 sleep(1)
 
