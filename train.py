@@ -88,40 +88,11 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
 
 
 
-    command_text_encoder = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
-                    '--image_captions_filename ' + \
-                    '--train_text_encoder ' + \
-                    '--dump_only_text_encoder ' + \
-                    '--pretrained_model_name_or_path="{0}"'.format(SD_MODEL_PATH) + ' ' + \
-                    '--instance_data_dir="{0}"'.format(INSTANCE_DIR) + ' ' + \
-                    '--class_data_dir="{0}"'.format(CLASS_DIR) + ' ' + \
-                    '--output_dir="{0}"'.format(OUTPUT_DIR) + ' ' + \
-                    '--with_prior_preservation' + ' ' + \
-                    '--prior_loss_weight=1.0' + ' ' + \
-                    '--instance_prompt="{0}"'.format(PT) + ' ' + \
-                    '--class_prompt="{0}"'.format(CPT) + ' ' + \
-                    '--seed={0}'.format(Seed) + ' ' + \
-                    '--resolution=512' + ' ' + \
-                    '--mixed_precision={0}'.format(precision) + ' ' + \
-                    '--train_batch_size=1' + ' ' + \
-                    '--gradient_accumulation_steps=1' + ' ' + \
-                    '--gradient_checkpointing' + ' ' + \
-                    '--use_8bit_adam' + ' ' + \
-                    '--learning_rate=1e-6' + ' ' + \
-                    '--lr_scheduler="polynomial"' + ' ' + \
-                    '--lr_warmup_steps=0' + ' ' + \
-                    '--center_crop' + ' ' + \
-                    '--max_train_steps={0}'.format(350) + ' ' + \
-                    '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' 2>output.log >output.log'
-
-
-    command_unet = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
+    command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
                     Caption + ' ' + \
-                    '--image_captions_filename ' + \
                     '--save_starting_step={0}'.format(stpsv) + ' ' + \
                     '--save_n_steps={0}'.format(stp) + ' ' + \
-                    '--train_only_unet ' + \
-                    '--Session_dir={0} '.format(WORK_DIR) + \
+                    '--train_text_encoder' + ' ' + \
                     '--pretrained_model_name_or_path="{0}"'.format(SD_MODEL_PATH) + ' ' + \
                     '--instance_data_dir="{0}"'.format(INSTANCE_DIR) + ' ' + \
                     '--class_data_dir="{0}"'.format(CLASS_DIR) + ' ' + \
@@ -138,18 +109,15 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--gradient_checkpointing' + ' ' + \
                     '--use_8bit_adam' + ' ' + \
                     '--learning_rate=1e-6' + ' ' + \
-                    '--lr_scheduler="polynomial"' + ' ' + \
+                    '--lr_scheduler="constant"' + ' ' + \
                     '--lr_warmup_steps=0' + ' ' + \
                     '--center_crop' + ' ' + \
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
                     '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' 2>output.log >output.log'
 
-
-
     getoutput("sudo systemctl stop stable-diffusion")
     
-    getoutput(command_text_encoder)
-    getoutput(command_unet)
+    o = getoutput(command)
     
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 
