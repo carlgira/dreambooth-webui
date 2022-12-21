@@ -6,7 +6,9 @@ import os
 
 HOME_DIR = os.environ['install_dir']
 WORK_DIR = HOME_DIR + '/dreambooth'
-MODEL_NAME = HOME_DIR + "/stable-diffusion-webui/models/Stable-diffusion/model.ckpt"
+MODEL_NAME = HOME_DIR + "/stable-diffusion-webui/models/Stable-diffusion/{0}.ckpt"
+CONFIG_NAME = HOME_DIR + "/stable-diffusion-webui/models/Stable-diffusion/{0}.yaml"
+DEFAULT_CONFIG_NAME = HOME_DIR + "/stable-diffusion-webui/models/Stable-diffusion/model.yaml"
 SD_MODEL_PATH = WORK_DIR + '/stable-diffusion'
 
 
@@ -126,7 +128,9 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
         
     getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
     
-    getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME))
+    getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME.format("carlgira")))
+    getoutput("cp {DEFAULT_CONFIG_NAME} {CONFIG_NAME}".format(DEFAULT_CONFIG_NAME=DEFAULT_CONFIG_NAME, CONFIG_NAME=CONFIG_NAME.format("carlgira")))
+    
     getoutput("sudo systemctl start stable-diffusion")
     
     
