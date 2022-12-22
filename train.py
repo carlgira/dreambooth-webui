@@ -68,6 +68,8 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
         precision="no"
     else:
         precision=prec
+    
+    prc="--fp16" if precision=="fp16" else ""
 
     Save_Checkpoint_Every_n_Steps = False
     Save_Checkpoint_Every=500
@@ -93,15 +95,8 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     
     dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 350, 1e-06)
     train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, 512, precision, Training_Steps, Style ,2e-06)
-        
-    getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
-
-    getoutput("sed -i '202s@.*@    checkpoint_path= \"{CHECKPOINT_PATH}\"@' {WORK_DIR}/convertosd_mod.py".format(CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR))
-
-    if precision=="no":
-        getoutput("sed -i '226s@.*@@' {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
-        
-    getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
+    
+    getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/diffusers/scripts/convertosdv2.py {PRC} {OUTPUT_DIR} {CHECKPOINT_PATH}".format(PRC=prc, OUTPUT_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME ))
     
     getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME.format("carlgira")))
     getoutput("cp {DEFAULT_CONFIG_NAME} {CONFIG_NAME}".format(DEFAULT_CONFIG_NAME=DEFAULT_CONFIG_NAME, CONFIG_NAME=CONFIG_NAME.format("carlgira")))
