@@ -28,6 +28,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     SUBJECT_IMAGES = Number_of_subject_images
     OUTPUT_DIR = WORK_DIR + "/models/"+ INSTANCE_NAME
 
+    Style=""
     if Training_Subject=="Character" or Training_Subject=="Object":
         PT="photo of "+INSTANCE_NAME+" "+SUBJECT_TYPE
         CPT="a photo of a "+SUBJECT_TYPE+", ultra detailed"
@@ -38,6 +39,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
         PT="in the "+SUBJECT_TYPE+" style of "+INSTANCE_NAME
         if Captionned_instance_images:
             PT="in the style of"  
+        Style="--Style"
     elif Training_Subject=="Artist":
         With_Prior_Preservation = "No"
         PT=SUBJECT_TYPE+" By "+INSTANCE_NAME
@@ -86,39 +88,13 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     if Captionned_instance_images:
         Caption='--image_captions_filename'
 
-
-
-    command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
-                    Caption + ' ' + \
-                    '--save_starting_step={0}'.format(stpsv) + ' ' + \
-                    '--save_n_steps={0}'.format(stp) + ' ' + \
-                    '--train_text_encoder' + ' ' + \
-                    '--pretrained_model_name_or_path="{0}"'.format(SD_MODEL_PATH) + ' ' + \
-                    '--instance_data_dir="{0}"'.format(INSTANCE_DIR) + ' ' + \
-                    '--class_data_dir="{0}"'.format(CLASS_DIR) + ' ' + \
-                    '--output_dir="{0}"'.format(OUTPUT_DIR) + ' ' + \
-                    '--with_prior_preservation' + ' ' + \
-                    '--prior_loss_weight=1.0' + ' ' + \
-                    '--instance_prompt="{0}"'.format(PT) + ' ' + \
-                    '--class_prompt="{0}"'.format(CPT) + ' ' + \
-                    '--seed={0}'.format(Seed) + ' ' + \
-                    '--resolution=512' + ' ' + \
-                    '--mixed_precision={0}'.format(precision) + ' ' + \
-                    '--train_batch_size=1' + ' ' + \
-                    '--gradient_accumulation_steps=1' + ' ' + \
-                    '--gradient_checkpointing' + ' ' + \
-                    '--use_8bit_adam' + ' ' + \
-                    '--learning_rate=1e-6' + ' ' + \
-                    '--lr_scheduler="constant"' + ' ' + \
-                    '--lr_warmup_steps=0' + ' ' + \
-                    '--center_crop' + ' ' + \
-                    '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
-                    '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' 2>output.log >output.log'
-
+    SESSION_DIR='/home/ubuntu/dreambooth/sessions/carlgira'
     getoutput("sudo systemctl stop stable-diffusion")
     
-    o = getoutput(command)
     
+    dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 350)
+    train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, 512, precision, Training_Steps)
+        
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
 
     getoutput("sed -i '202s@.*@    checkpoint_path= \"{CHECKPOINT_PATH}\"@' {WORK_DIR}/convertosd_mod.py".format(CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR))
@@ -134,3 +110,52 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     getoutput("sudo systemctl start stable-diffusion")
     
     
+def dump_only_textenc(MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, precision, Training_Steps, lr):
+    
+    command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
+        '--image_captions_filename ' + \
+        '--train_text_encoder ' + \
+        '--dump_only_text_encoder ' + \
+        '--pretrained_model_name_or_path="{0}" '.format(MODELT_NAME) +  \
+        '--instance_data_dir="{0}" '.format(INSTANCE_DIR)  + \
+        '--output_dir="{0}" '.format(OUTPUT_DIR) + \
+        '--instance_prompt="{0}" '.format(PT) + \
+        '--seed={0} '.format(Seed) + \
+        '--resolution=512 ' + \
+        '--mixed_precision={0} '.format(precision) + \
+        '--train_batch_size=1 ' + \
+        '--gradient_accumulation_steps=1 --gradient_checkpointing ' + \
+        '--use_8bit_adam ' + \
+        '--learning_rate={0} '.format(lr) + \
+        '--lr_scheduler="polynomial" ' + \
+        '--lr_warmup_steps=0 ' + \
+        '--max_train_steps={0} '.format(Training_Steps) + ' 2>output.log >output.log'
+    
+    return getoutput(command)
+
+def train_only_unet(stpsv, stp, SESSION_DIR, MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, Res, precision, Training_Steps, Style, lr):
+
+    command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
+    Style + ' ' \
+    '--image_captions_filename ' + \
+    '--train_only_unet ' + \
+    '--save_starting_step={0} '.format(stpsv) + \
+    '--save_n_steps={0} '.format(stp) + \
+    '--Session_dir={0} '.format(SESSION_DIR) + \
+    '--pretrained_model_name_or_path="{0}" '.format(MODELT_NAME) + \
+    '--instance_data_dir="{0}" '.format(INSTANCE_DIR) + \
+    '--output_dir="{0}" '.format(OUTPUT_DIR) + \
+    '--instance_prompt="{PT}" '.format(PT) + \
+    '--seed={0} '.format(Seed) + \
+    '--resolution={0} '.format(Res) + \
+    '--mixed_precision={0} '.format(precision) + \
+    '--train_batch_size=1 ' + \
+    '--gradient_accumulation_steps=1 --gradient_checkpointing ' + \
+    '--use_8bit_adam ' + \
+    '--learning_rate={0} '.format(lr) +  \
+    '--lr_scheduler="polynomial" ' + \
+    '--lr_warmup_steps=0 ' + \
+    '--max_train_steps={0} '.format(Training_Steps) + ' 2>output.log >output.log'
+    
+    return getoutput(command)
+

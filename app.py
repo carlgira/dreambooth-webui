@@ -123,7 +123,7 @@ def home():
             if file.filename == '':
                 return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_no_zip_file"])
             
-            filename = secure_filename(file.filename)
+            filename = file.filename
             try:
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
             except:
