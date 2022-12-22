@@ -91,7 +91,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     SESSION_DIR='/home/ubuntu/dreambooth/sessions/carlgira'
     getoutput("sudo systemctl stop stable-diffusion")
     
-    dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 50, 1e-06)
+    dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 350, 1e-06)
     train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, 512, precision, Training_Steps, Style ,2e-06)
         
     getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
