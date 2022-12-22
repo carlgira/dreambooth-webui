@@ -123,7 +123,7 @@ def home():
             if file.filename == '':
                 return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_no_zip_file"])
             
-            filename = file.filename
+            filename = secure_filename(file.filename)
             try:
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
             except:
@@ -134,7 +134,7 @@ def home():
             try:
                 unzip = subprocess.run(["unzip", UPLOAD_FOLDER + '/' + filename, '-d' , UPLOAD_FOLDER + '/' + instance_name], check=True)
                 # check that the unzipped file contains only images
-                for file in os.listdir(UPLOAD_FOLDER + '/' + instance_name):
+                for i, file in enumerate(os.listdir(UPLOAD_FOLDER + '/' + instance_name)):
                     file_path = UPLOAD_FOLDER + '/' + instance_name + '/' + file
                     if os.path.isdir(file_path):
                         subprocess.run(["rm", "-rf", file_path])
@@ -147,6 +147,10 @@ def home():
                     
                     if not file.lower().endswith(('.png', '.jpg', '.jpeg')):
                         return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts['error_zip_contains_other_files'])
+
+                    extension = file.split('.')[-1]
+                    os.rename(file_path, UPLOAD_FOLDER + '/' + instance_name + '/' + instance_name + ' ({index})'.format(i+1) + '.' + extension)
+                    
             except Exception as e:
                 subprocess.run(["echo", str(e)])
                 return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_unzip"])
