@@ -96,7 +96,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 350, 1e-06)
     train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, 512, precision, Training_Steps, Style ,2e-06)
     
-    getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/diffusers/scripts/convertosdv2.py {PRC} {OUTPUT_DIR} {CHECKPOINT_PATH}".format(PRC=prc, OUTPUT_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME ))
+    getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/diffusers/scripts/convertosdv2.py {PRC} {OUTPUT_DIR} {CHECKPOINT_PATH}".format(PRC=prc, OUTPUT_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR ))
     
     getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME.format("carlgira")))
     getoutput("cp {DEFAULT_CONFIG_NAME} {CONFIG_NAME}".format(DEFAULT_CONFIG_NAME=DEFAULT_CONFIG_NAME, CONFIG_NAME=CONFIG_NAME.format("carlgira")))
