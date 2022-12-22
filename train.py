@@ -144,7 +144,7 @@ def train_only_unet(stpsv, stp, SESSION_DIR, MODELT_NAME, INSTANCE_DIR, OUTPUT_D
     '--pretrained_model_name_or_path="{0}" '.format(MODELT_NAME) + \
     '--instance_data_dir="{0}" '.format(INSTANCE_DIR) + \
     '--output_dir="{0}" '.format(OUTPUT_DIR) + \
-    '--instance_prompt="{PT}" '.format(PT) + \
+    '--instance_prompt="{0}" '.format(PT) + \
     '--seed={0} '.format(Seed) + \
     '--resolution={0} '.format(Res) + \
     '--mixed_precision={0} '.format(precision) + \
