@@ -18,7 +18,7 @@ WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/models/Stable-diffusion/model.ckpt'
 CONFIG_PATH_SD = WORK_DIR + '/stable-diffusion-webui/models/Stable-diffusion/model.yaml'
 SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion/unet/diffusion_pytorch_model.bin'
-SD_URL = 'https://huggingface.co/stabilityai/stable-diffusion-2-1-base/raw/main/v2-1_512-ema-pruned.ckpt'
+SD_URL = 'https://huggingface.co/stabilityai/stable-diffusion-2-1-base/resolve/main/v2-1_512-ema-pruned.ckpt'
 
 SD_CONFIG = 'https://raw.githubusercontent.com/Stability-AI/stablediffusion/main/configs/stable-diffusion/v2-inference.yaml'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
