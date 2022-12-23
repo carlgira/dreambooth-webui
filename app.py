@@ -184,6 +184,8 @@ def stream():
                 last_line = content[-1]
                 yield last_line
                 sleep(1)
+                logging.info(last_line)
+                logging.info('100%' in last_line)
                 if '100%' in last_line:
                     return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['reload_model_message'], COUNTDOWN=texts["reload_model_time"], REDIRECT='"http://localhost:7860"')
 
