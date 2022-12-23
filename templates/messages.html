@@ -45,7 +45,7 @@
                                               const status = xhr.status;
                                               if (status === 0 || (status >= 200 && status < 400)) {
                                                 var output = document.getElementById('logArea');
-                                                output.textContent = xhr.responseText.substring(0, 78) + ']';
+                                                output.textContent = xhr.responseText.substring(0, 77) + ']';
                                               } else {
                                                 console.log("Error getting log");
                                               }
