@@ -124,14 +124,7 @@ if [[ "$first_launch" -eq 1 ]]; then
     mkdir -p $WORK_DIR/data
     mkdir -p $WORK_DIR/output
 
-    wget -O $WORK_DIR/convertosd.py https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dreambooth/convertosd.py
     git clone --branch updt https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
-
-    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-person_ddim.git $WORK_DIR/data/person_ddim
-    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_euler.git $WORK_DIR/data/man_euler
-    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-man_unsplash.git $WORK_DIR/data/man_unsplash
-    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-woman_ddim.git $WORK_DIR/data/woman_ddim
-    git clone https://github.com/djbielejeski/Stable-Diffusion-Regularization-Images-blonde_woman.git $WORK_DIR/data/blonde_woman
 
     # Horrible FIX to avoid problem with CUDA_VISIBLE_DEVICES
     SITE_PACKAGES=$($python_cmd -c "import site; print(site.getsitepackages()[0])")
