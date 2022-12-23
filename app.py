@@ -13,6 +13,7 @@ import glob
 import json
 from subprocess import getoutput
 from time import sleep
+import logging
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/models/Stable-diffusion/model.ckpt'
@@ -153,6 +154,7 @@ def home():
                     os.rename(file_path, UPLOAD_FOLDER + '/' + instance_name + '/' + instance_name + ' ({index})'.format(i+1) + '.' + extension)
                     
             except Exception as e:
+                logging.error('Error with zip, ' + str(e))
                 subprocess.run(["echo", str(e)])
                 return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_unzip"])
             
