@@ -86,10 +86,6 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     if Save_Checkpoint_Every_n_Steps:
         stp=Save_Checkpoint_Every
 
-    Caption=''
-    if Captionned_instance_images:
-        Caption='--image_captions_filename'
-
     SESSION_DIR='/home/ubuntu/dreambooth/sessions/carlgira'
     getoutput("sudo systemctl stop stable-diffusion")
     
@@ -103,6 +99,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     
     getoutput("sudo systemctl start stable-diffusion")
     
+    getoutput("rm {LOG_FILE}".format(LOG_FILE=HOME_DIR + "/dreambooth-webui/outpu.log"))
     
 def dump_only_textenc(MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, precision, Training_Steps, lr):
     
