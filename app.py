@@ -177,18 +177,16 @@ def home():
 
 @flask.route('/stream')
 def stream():
-    def generate():
-        with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
+    with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
             content = f.readlines()
+    last_line = content[-1]
+    if '100%' in last_line:
+        return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['reload_model_message'], COUNTDOWN=texts["reload_model_time"], REDIRECT='"http://localhost:7860"')
+    def generate():
             if len(content) > 0:
-                last_line = content[-1]
                 yield last_line
                 sleep(1)
-                logging.info(last_line)
-                logging.info('100%' in last_line)
-                if '100%' in last_line:
-                    return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['reload_model_message'], COUNTDOWN=texts["reload_model_time"], REDIRECT='"http://localhost:7860"')
-
+                
     return flask.response_class(generate(), mimetype='text/plain')
 
 
