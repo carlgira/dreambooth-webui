@@ -151,7 +151,7 @@ def home():
                         return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts['error_zip_contains_other_files'])
 
                     extension = file.split('.')[-1]
-                    os.rename(file_path, UPLOAD_FOLDER + '/' + instance_name + '/' + instance_name + ' ({index})'.format(i+1) + '.' + extension)
+                    os.rename(file_path, UPLOAD_FOLDER + '/' + instance_name + '/' + instance_name + ' ({0})'.format(i+1) + '.' + extension)
                     
             except Exception as e:
                 logging.exception("Error with unzip")
