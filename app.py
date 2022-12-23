@@ -154,8 +154,7 @@ def home():
                     os.rename(file_path, UPLOAD_FOLDER + '/' + instance_name + '/' + instance_name + ' ({index})'.format(i+1) + '.' + extension)
                     
             except Exception as e:
-                logging.error('Error with zip, ' + str(e))
-                subprocess.run(["echo", str(e)])
+                logging.exception("Error with unzip")
                 return render_template(INDEX_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_unzip"])
             
             subprocess.run(["rm", "-rf", UPLOAD_FOLDER + '/' + filename])
