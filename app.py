@@ -184,6 +184,8 @@ def stream():
                 last_line = content[-1]
                 yield last_line
                 sleep(1)
+                if '100%' in last_line:
+                    return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['training_in_progress'], COUNTDOWN=texts["reload_model_time"], REDIRECT='"http://localhost:7860"')
 
     return flask.response_class(generate(), mimetype='text/plain')
 
