@@ -39,9 +39,21 @@
                                     setInterval(function() {
                                         var xhr = new XMLHttpRequest();
                                         xhr.open('GET', '{{ url_for('stream') }}');
+                                        xhr.onreadystatechange = () => {
+                                            // In local files, status is 0 upon success in Mozilla Firefox
+                                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                              const status = xhr.status;
+                                              if (status === 0 || (status >= 200 && status < 400)) {
+                                                var output = document.getElementById('logArea');
+                                                output.textContent = xhr.responseText;
+                                              } else {
+                                                console.log("Error getting log"");
+                                              }
+                                            }
+                                          };
+
                                         xhr.send();
-                                        var output = document.getElementById('logArea');
-                                        output.textContent = xhr.responseText;
+                                        
                                     }, 1000);
                                 </script>
                                 <label for="log">Training log</label>
