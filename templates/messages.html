@@ -40,12 +40,12 @@
                                         var xhr = new XMLHttpRequest();
                                         xhr.open('GET', '{{ url_for('stream') }}');
                                         xhr.send();
-                                        var output = document.getElementById('log');
+                                        var output = document.getElementById('logArea');
                                         output.textContent = xhr.responseText;
                                     }, 1000);
                                 </script>
                                 <label for="log">Training log</label>
-                                <textarea id="log" name="log" class="nes-textarea" disabled></textarea>
+                                <textarea id="logArea" name="logArea" class="nes-textarea" disabled></textarea>
                             {% endif %}
                           </div>
                     </section>
