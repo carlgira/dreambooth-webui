@@ -34,19 +34,19 @@
                                 startCountdown({{COUNTDOWN}}, {{REDIRECT | safe}});
                             </script>
                             {% endif %}
-                            <script>
-                                
-                            
-                                setInterval(function() {
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open('GET', '{{ url_for('stream') }}');
-                                    xhr.send();
-                                    var output = document.getElementById('log');
-                                    output.textContent = xhr.responseText;
-                                }, 1000);
-                            </script>
-                            <label for="log">Training log</label>
-                            <textarea id="log" name="log" class="nes-textarea" disabled></textarea>
+                            {% if not(COUNTDOWN) %}
+                                <script>
+                                    setInterval(function() {
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('GET', '{{ url_for('stream') }}');
+                                        xhr.send();
+                                        var output = document.getElementById('log');
+                                        output.textContent = xhr.responseText;
+                                    }, 1000);
+                                </script>
+                                <label for="log">Training log</label>
+                                <textarea id="log" name="log" class="nes-textarea" disabled></textarea>
+                            {% endif %}
                           </div>
                     </section>
                 </main>
