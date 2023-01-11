@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_file
 import requests
 import os
 import subprocess
+from subprocess import getoutput
 from train import train_model
 from werkzeug.utils import secure_filename
 import threading
@@ -199,11 +200,10 @@ def txt2img():
                 pnginfo.add_text("parameters", payload['prompt'])
                 image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
             
-            ZIP_FILE = SESSION_DIR + '/images.zip'
-            subprocess.run(["zip", ZIP_FILE, SESSION_DIR + '/+'])
-            
-            return send_file(ZIP_FILE)
-            
+        ZIP_FILE = SESSION_DIR + '/images.zip'
+        getoutput("zip {ZIP_FILE} {ZIP_FILES}".format(ZIP_FILE=ZIP_FILE, ZIP_FILES=SESSION_DIR + '/*'))
+        
+        return send_file(ZIP_FILE)
         
     return render_template(TXT2IMG_PAGE)
 
