@@ -21,7 +21,7 @@ CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
 SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
-OUTPUT_DIR = WORK_DIR + "/output/txt2img"
+OUTPUT_DIR = WORK_DIR + "/dreambooth/output/txt2img"
 t = None
 
 INDEX_PAGE='index.html'
@@ -192,7 +192,6 @@ def txt2img():
             for i, img in enumerate(r['images']):
                 image = Image.open(io.BytesIO(base64.b64decode(img.split(",",1)[0])))
 
-                
                 pnginfo = PngImagePlugin.PngInfo()
                 pnginfo.add_text("parameters", payload['prompt'])
                 image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
