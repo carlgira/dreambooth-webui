@@ -181,7 +181,7 @@ def txt2img():
         file = request.files['prompts']
         file.save(os.path.join(SESSION_DIR, 'prompts.json'))
         
-        data = json.load(file)
+        data = json.load(file.read())
         
         url = "http://127.0.0.1:7860"
         for e, payload in enumerate(data):
