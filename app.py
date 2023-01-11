@@ -2,7 +2,7 @@
 
 # import all the required libraries
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 import requests
 import os
 import subprocess
@@ -198,6 +198,11 @@ def txt2img():
                 pnginfo = PngImagePlugin.PngInfo()
                 pnginfo.add_text("parameters", payload['prompt'])
                 image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
+            
+            ZIP_FILE = SESSION_DIR + '/images.zip'
+            subprocess.run(["zip", ZIP_FILE, SESSION_DIR + '/+'])
+            
+            return send_file(ZIP_FILE)
             
         
     return render_template(TXT2IMG_PAGE)
