@@ -2,15 +2,20 @@
 
 # import all the required libraries
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 import requests
 import os
 import subprocess
+from subprocess import getoutput
 from train import train_model
 from werkzeug.utils import secure_filename
 import threading
 import glob
 import json
+import base64
+from PIL import Image, PngImagePlugin
+import random
+import io
 from subprocess import getoutput
 from time import sleep
 import logging
@@ -23,10 +28,12 @@ SD_URL = 'https://huggingface.co/stabilityai/stable-diffusion-2-1-base/resolve/m
 
 SD_CONFIG = 'https://raw.githubusercontent.com/Stability-AI/stablediffusion/main/configs/stable-diffusion/v2-inference.yaml'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
+t = None
 
 INDEX_PAGE='index.html'
 SETUP_PAGE='setup.html'
 MESSAGES_PAGE='messages.html'
+TXT2IMG_PAGE='txt2img.html'
 
 languages = {}
 language = 'en_US'
@@ -84,7 +91,7 @@ def home():
         except:
             return render_template(SETUP_PAGE, MESSAGE_TITLE=texts["type_of_message_error"], MESSAGE_CONTENT=texts["error_wrong_credentials"])
         
-        subprocess.run(["sudo", "systemctl", "start", "stabble-diffusion.service"])
+        subprocess.run(["sudo", "systemctl", "start", "stable-diffusion.service"])
         
         
         try:
@@ -175,6 +182,45 @@ def home():
     
     return render_template(INDEX_PAGE)
 
+
+# create a route for the home page
+@flask.route('/txt2img', methods=['GET', 'POST'])
+def txt2img():
+    
+    if request.method == 'GET':
+        return render_template(TXT2IMG_PAGE)    
+    
+    if request.method == 'POST':
+        session = random.randrange(1000, 10000)
+        SESSION_DIR = OUTPUT_DIR + '/' + str(session)
+        os.mkdir(SESSION_DIR)
+        file = request.files['prompts']
+        PROMPTS_FILE = SESSION_DIR + '/' + 'prompts.json'
+        file.save(PROMPTS_FILE)
+        
+        data = None
+        with open(PROMPTS_FILE) as json_file:
+            data = json.load(json_file)
+                
+        url = "http://127.0.0.1:7860"
+        for e, payload in enumerate(data):
+            response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
+
+            r = response.json()
+
+            for i, img in enumerate(r['images']):
+                image = Image.open(io.BytesIO(base64.b64decode(img.split(",",1)[0])))
+
+                pnginfo = PngImagePlugin.PngInfo()
+                pnginfo.add_text("parameters", payload['prompt'])
+                image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
+            
+        ZIP_FILE = SESSION_DIR + '/images.zip'
+        getoutput("zip -j {ZIP_FILE} {ZIP_FILES}".format(ZIP_FILE=ZIP_FILE, ZIP_FILES=SESSION_DIR + '/*'))
+        
+        return send_file(ZIP_FILE)
+        
+    return render_template(TXT2IMG_PAGE)
 @flask.route('/stream')
 def stream():
     with open(WORK_DIR + "/dreambooth-webui/output.log") as f:

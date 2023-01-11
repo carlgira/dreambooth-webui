@@ -122,7 +122,7 @@ if [[ "$first_launch" -eq 1 ]]; then
     mkdir -p $WORK_DIR/stable-diffusion
     mkdir -p $WORK_DIR/models/stable-diffusion
     mkdir -p $WORK_DIR/data
-    mkdir -p $WORK_DIR/output
+    mkdir -p $WORK_DIR/output/txt2img
 
     git clone --branch updt https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
 

@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <link href="static/css/style.css" rel="stylesheet" />
+        <title>Generate Images</title>
+    </head>
+    <body>
+        <div id="nescss">
+            <header :class="{ sticky: scrollPos > 50 }">
+              <div class="container">
+                    <div class="nav-brand">
+                        <h1><i class="nes-kirby brand-logo"></i>Stable Diffusion</h1>
+                        <p>Generate a set of images using text file</p>
+                    </div>
+                    <div>
+                        <img src="static/img/wedo-logo.png" width="64" height="64">
+                    </div>
+                </div>
+              </div>
+            </header>
+
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="container">
+                <main class="main-content">
+                    
+                    <!-- About -->
+                    <section class="topic">
+                        <h2 id="about"><a href="#about">#</a>Generate Images</h2>
+                        <p>It generates images using the service txt2img using the JSON file as input</p>
+                        <br /><br />
+
+                        {% if MESSAGE_TITLE %}
+                        <div class="nes-container with-title is-centered is-error">
+                            <p class="title"><span class="nes-text is-error">{{MESSAGE_TITLE}}</span></p>
+                            <p>{{MESSAGE_CONTENT}}</p>
+                          </div>
+                          <br /><br />
+                        {% endif %}
+
+                        <table>
+
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <tr>
+                                    <td class="columnform">
+                                        <label class="nes-btn">
+                                            <span>Select the JSON file</span>
+                                            <input type="file" id="prompts" name="prompts" accept=".json">
+                                        </label>
+                                    </td>
+                                    <td>     </td>
+                                    <td class="column">
+                                        <p>This should be JSON file with list of request to the txt2img service</p>
+                                    </td>
+                                </tr>
+                                
+                                <tr><td colspan="3"><hr/><br/><br/></td></tr>
+                                
+                                <tr>
+                                    <td colspan="3">
+                                        <span class="nes-text is-primary">The generation should take about 8 seconds per image</span>
+                                        <br /><br />
+                                        <button type="submit" class="nes-btn is-success">Generate</button>
+                                    </td>
+                                </tr>
+                                
+                            </form>
+                        </table>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>
