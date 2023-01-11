@@ -11,13 +11,17 @@ from werkzeug.utils import secure_filename
 import threading
 import glob
 import json
-import logging
+import base64
+from PIL import Image, PngImagePlugin
+import random
+import io
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
 SD_RAW_MODEL = WORK_DIR + '/dreambooth/stable-diffusion-v1-5/unet/diffusion_pytorch_model.bin'
 SD_URL = 'https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt'
 UPLOAD_FOLDER = WORK_DIR + '/dreambooth/data'
+OUTPUT_DIR = WORK_DIR + "/output/txt2img"
 t = None
 
 INDEX_PAGE='index.html'
@@ -171,15 +175,29 @@ def txt2img():
         return render_template(TXT2IMG_PAGE)    
     
     if request.method == 'POST':
-        
+        session = random.randrange(1000, 10000)
+        SESSION_DIR = OUTPUT_DIR + '/' + str(session)
+        os.mkdir(SESSION_DIR)
         file = request.files['prompts']
+        file.save(os.path.join(SESSION_DIR, 'prompts.json'))
         
-        logging.info('file: ' + str(file))
+        data = json.load(file)
         
+        url = "http://127.0.0.1:7860"
+        for e, payload in enumerate(data):
+            response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
 
-    
-    
-    
+            r = response.json()
+
+            for i, img in enumerate(r['images']):
+                image = Image.open(io.BytesIO(base64.b64decode(img.split(",",1)[0])))
+
+                
+                pnginfo = PngImagePlugin.PngInfo()
+                pnginfo.add_text("parameters", payload['prompt'])
+                image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
+            
+        
     return render_template(TXT2IMG_PAGE)
 
 # run the flask app

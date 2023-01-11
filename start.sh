@@ -122,7 +122,7 @@ if [[ "$first_launch" -eq 1 ]]; then
     mkdir -p $WORK_DIR/stable-diffusion-v1-5
     mkdir -p $WORK_DIR/models/stable-diffusion
     mkdir -p $WORK_DIR/data
-    mkdir -p $WORK_DIR/output
+    mkdir -p $WORK_DIR/output/txt2img
 
     wget -O $WORK_DIR/convertosd.py https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dreambooth/convertosd.py
     git clone --branch updt https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
