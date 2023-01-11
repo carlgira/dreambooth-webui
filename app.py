@@ -179,10 +179,13 @@ def txt2img():
         SESSION_DIR = OUTPUT_DIR + '/' + str(session)
         os.mkdir(SESSION_DIR)
         file = request.files['prompts']
-        file.save(os.path.join(SESSION_DIR, 'prompts.json'))
+        PROMPTS_FILE = SESSION_DIR + '/' + 'prompts.json'
+        file.save(PROMPTS_FILE)
         
-        data = json.load(file.read())
-        
+        data = None
+        with open(PROMPTS_FILE) as json_file:
+            data = json.load(json_file)
+                
         url = "http://127.0.0.1:7860"
         for e, payload in enumerate(data):
             response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
