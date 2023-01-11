@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 import threading
 import glob
 import json
+import logging
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
@@ -22,6 +23,7 @@ t = None
 INDEX_PAGE='index.html'
 SETUP_PAGE='setup.html'
 MESSAGES_PAGE='messages.html'
+TXT2IMG_PAGE='txt2img.html'
 
 languages = {}
 language = 'en_US'
@@ -160,6 +162,25 @@ def home():
     
     return render_template(INDEX_PAGE)
 
+
+# create a route for the home page
+@flask.route('/txt2img', methods=['GET', 'POST'])
+def txt2img():
+    
+    if request.method == 'GET':
+        return render_template(TXT2IMG_PAGE)    
+    
+    if request.method == 'POST':
+        
+        file = request.files['prompts']
+        
+        logging.info('file: ' + str(file))
+        
+
+    
+    
+    
+    return render_template(TXT2IMG_PAGE)
 
 # run the flask app
 if __name__ == '__main__':
