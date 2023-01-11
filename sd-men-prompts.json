@@ -1,0 +1,402 @@
+[
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> as funko"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "photo of <subject> as Captain America, western, D&D, fantasy, intricate, elegant, highly detailed, digital painting, artstation, concept art, matte, sharp focus, illustration, art by Artgerm and Greg Rutkowski and Alphonse Mucha"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "portrait of <subject>. game of thrones character design by laurie greasley and sherree valentine daines concept art, matte, sharp focus, illustration, hearthstone, art by artgerm and greg rutkowski and alphonse mucha"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "Beautiful anime painting of <subject>, solarpunk summer chill day, by tim okamura, victor nizovtsev, greg rutkowski, noah bradley. trending on artstation, 8k, masterpiece, graffiti paint, fine detail, full of color, intricate detail, golden ratio illustration"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "a ultradetailed beautiful panting of <subject> dribbling a basketball, by conrad roset, greg rutkowski and makoto shinkai, trending on artstation "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, face portrait, elegant, fantasy, hd shot, digital portrait, beautiful, artstation, comic style, by artgerm, guy denning, jakub rozalski, magali villeneuve and charlie bowater "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "portrait of <subject>, half body, d & d, fantasy, intricate, elegant, highly detailed, digital painting, artstation, concept art, art by artgerm and greg rutkowski and alphonse mucha, boris vallejo, man "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "realistic portrait painting of <subject>, old mystic ruins, afternoon, intricate, elegant, highly detailed, digital painting, sharp, focus, by artgerm and greg rutkowski "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "soldier <subject> running in smoke and dirt, trading card front, anime style, symmetrical facial features, symmetrical body features, hyper realistic, 4k, rule of thirds, extreme detail, detailed drawing, trending artstation, hd, fantasy, D&D, realistic lighting, by Alphonse Mucha, Greg Rutkowski, sharp focus, backlit, soldier clothing"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> assassin, wearing cyberpunk intricate techwear clothing, beautiful, detailed portrait, cell shaded, 4 k, concept art, by wlop, ilya kuvshinov, artgerm, krenz cushart, greg rutkowski, pixiv. cinematic dramatic atmosphere, sharp focus, volumetric lighting, cinematic lighting, studio quality "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> with long sky blue hair, gold eyes, amber eyes, boyish face, professional digital painting, wild brush strokes, concept art, award - winning photography, cinematic, wlop, color block, pop, hip, art by andy warhol, pixiv art, yoshitaka amano "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "a detailed portrait of  <subject>, assassin dressed with a leather armor, by justin gerard and greg rutkowski, digital art, realistic painting, dnd, character design, trending on artstation "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "highly detailed portrait of <subject> as the joker, in batman comic book, stephen bliss, unreal engine, fantasy art by greg rutkowski, loish, rhads, ferdinand knab, makoto shinkai and lois van baarle, ilya kuvshinov, rossdraws, tom bagshaw, global illumination, radiant light, detailed and intricate environment "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "baroque oil painting full body portrait <subject> concept art, anime key visual of nazi officer,  finely detailed symmetrical perfect face studio lighting delicate features directed gaze, black military uniform, gapmoe kuudere grimdark, trending on pixiv fanbox, painted by greg rutkowski makoto shinkai takashi takeuchi studio ghibli "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> as Captain America, portrait, highly detailed, digital painting, artstation, concept art, sharp focus, illustration, cinematic lighting, art by artgerm and greg rutkowski and alphonse mucha"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> anime Playing the violin instrument , digital Art, Greg rutkowski, Trending cinematographic artstation"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "photo of <subject> wearing iron man suit, trip to legnica, very realistic film still, natural "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "Portrait of <subject> as Doctor Strange, highly detailed, marvel comics, dark, intricate, highly detailed, smooth, artstation, digital illustration by Ruan Jia and Mandy Jurgens and Artgerm and Wayne Barlowe and Greg Rutkowski and Zdislav Beksinski"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> wearing a barbarian tunic holding a glowing magical staff. Trending on Artstation, octane render, ultra detailed, art by Ross tran"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> profile picture by Greg Rutkowski, the matrix, dynamic pose, intricate, futuristic, fantasy, elegant, by Stanley Artgerm Lau, greg rutkowski, thomas kindkade, alphonse mucha, loish, norman Rockwell,"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, painting by gaston bussiere, craig mullins, j. c. leyendecker, edgar degas "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> wearing a babushka scarf, charcoal painting by richard mortensen and zdzislaw beksinski, trending on cgsociety, remodernism, matte drawing, zbrush, hyper realism "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>   as an Apex Legends character digital illustration portrait design by, Mark Brooks and Brad Kunkle detailed, gorgeous lighting, wide angle action dynamic portrait "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, portrait, colorful and vibrant, majestic, open wide eyes, tear drops, flowers on hair, glowing light orbs, intricate concept art, elegant, digital painting, smooth, sharp focus, ethereal opalescent mist, outrun, vaporware, cyberpunk darksynth, ethereal, ominous, misty, by ruan jia and miho hirano, 8 k, rendered in octane "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> as Nathan Drake, western, D&D, fantasy, intricate, elegant, highly detailed, digital painting, artstation, concept art, matte, sharp focus, illustration, art by Artgerm and Greg Rutkowski and Alphonse Mucha"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "portrait of young gothic <subject>, cyberpunk, Warhammer, highly detailed, artstation, illustration, art by Gustav Klimt and Range Murata and Katsuya Terada"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "cute <subject> medieval peasant, natural lighting, path traced, highly detailed, high quality, digital painting, by don bluth and ross tran and studio ghibli and alphonse mucha, artgerm "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, an anime nendoroid of <subject>, figurine, detailed product photo "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> in death note, high quality, trending on artstation, 4 k "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "anime portrait of <subject> in the style of psycho - pass, he is wearing a beige and black utility jumpsuit, highly detailed portrait, digital painting, artstation, concept art, smooth, sharp foccus ilustration, artstation hq "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "portrait of <subject> as character of Horizon Zero Dawn in the style of Assassins Creed, countryside, calm, fantasy character portrait, dynamic pose, above view, sunny day, thunder clouds in the sky, artwork by Jeremy Lipkin and Giuseppe Dangelico Pino and Michael Garmash and Rob Rey and Greg Manchess, very coherent asymmetrical artwork, sharp edges, perfect face, simple form, 100mm"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> portrait by egon schiele "
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject> in cool shirt, oil painting, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, pencil art, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, Watercolour, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, Pop Art, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, Gouache, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, Spray Paint, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 512,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "<subject>, impressionism, realistic"
+    },
+    {
+        "batch_size": 1,
+        "steps": 20,
+        "cfg_scale": 7,
+        "width": 512,
+        "height": 768,
+        "negative_prompt": "",
+        "sampler_index": "Euler a",
+        "prompt": "portrait of <subject> by mario testino, headshot, detailed, award winning, sony a 7 r "
+    }
+]
