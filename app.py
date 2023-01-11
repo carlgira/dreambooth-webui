@@ -201,7 +201,7 @@ def txt2img():
                 image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
             
         ZIP_FILE = SESSION_DIR + '/images.zip'
-        getoutput("zip {ZIP_FILE} {ZIP_FILES}".format(ZIP_FILE=ZIP_FILE, ZIP_FILES=SESSION_DIR + '/*'))
+        getoutput("zip -j {ZIP_FILE} {ZIP_FILES}".format(ZIP_FILE=ZIP_FILE, ZIP_FILES=SESSION_DIR + '/*'))
         
         return send_file(ZIP_FILE)
         
