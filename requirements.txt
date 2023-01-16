@@ -1,10 +1,1 @@
-git+https://github.com/TheLastBen/diffusers@updt
 Flask==2.2.2
-google-cloud
-google-cloud-vision
-protobuf==3.20.*
-absl-py
---extra-index-url https://download.pytorch.org/whl/cu113 
-torchvision==0.13.1+cu113
-promise
-termcolor
