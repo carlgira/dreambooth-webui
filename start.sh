@@ -118,17 +118,34 @@ else
 fi
 
 if [[ "$first_launch" -eq 1 ]]; then
+    "${pip_cmd}" install -q accelerate==0.12.0 blendmodes
+    for i in {1..5}
+    do
+        wget -q "https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dependencies/Dependencies.$i"
+        mv "Dependencies.$i" "Dependencies.7z.00$i"
+    done
+    7z x -y Dependencies.7z.001
+
+    SITE_PACKAGES=$($python_cmd -c "import site; print(site.getsitepackages()[0])")
+
+    cp -rf usr/local/lib/python3.8/dist-packages/* $SITE_PACKAGES
+    rm -r usr
+    
+    for i in {1..5}
+    do
+        rm "Dependencies.7z.00$i"
+    done
+
+    "${pip_cmd}" uninstall -y diffusers
+
     "${pip_cmd}" install -r requirements.txt
+
     mkdir -p $WORK_DIR/stable-diffusion
     mkdir -p $WORK_DIR/models/stable-diffusion
     mkdir -p $WORK_DIR/data
     mkdir -p $WORK_DIR/output/txt2img
 
     git clone --branch updt https://github.com/TheLastBen/diffusers $WORK_DIR/diffusers
-
-    # Horrible FIX to avoid problem with CUDA_VISIBLE_DEVICES
-    SITE_PACKAGES=$($python_cmd -c "import site; print(site.getsitepackages()[0])")
-    sed -i '375s/args.gpu_ids/\"0\"/g' $SITE_PACKAGES/accelerate/commands/launch.py
 fi
 
 # locate the bin folder of the venv

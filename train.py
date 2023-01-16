@@ -86,7 +86,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     if Save_Checkpoint_Every_n_Steps:
         stp=Save_Checkpoint_Every
 
-    SESSION_DIR='/home/ubuntu/dreambooth/sessions/carlgira'
+    SESSION_DIR='/home/ubuntu/dreambooth/sessions/' + INSTANCE_NAME
     getoutput("sudo systemctl stop stable-diffusion")
     
     dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 350, 1e-06)
@@ -94,8 +94,8 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     
     getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/diffusers/scripts/convertosdv2.py {PRC} {OUTPUT_DIR} {CHECKPOINT_PATH}".format(PRC=prc, OUTPUT_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR ))
     
-    getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME.format("carlgira")))
-    getoutput("cp {DEFAULT_CONFIG_NAME} {CONFIG_NAME}".format(DEFAULT_CONFIG_NAME=DEFAULT_CONFIG_NAME, CONFIG_NAME=CONFIG_NAME.format("carlgira")))
+    getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME.format(INSTANCE_NAME)))
+    getoutput("cp {DEFAULT_CONFIG_NAME} {CONFIG_NAME}".format(DEFAULT_CONFIG_NAME=DEFAULT_CONFIG_NAME, CONFIG_NAME=CONFIG_NAME.format(INSTANCE_NAME)))
     
     getoutput("sudo systemctl start stable-diffusion")
     
