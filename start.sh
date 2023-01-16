@@ -122,8 +122,8 @@ if [[ "$first_launch" -eq 1 ]]; then
     wget -q -i "https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dependencies/dbdeps.txt"
     for i in {1..7}
     do
-        rm "Dependencies.7z.00$i"
-    done    
+        mv "deps.{i}" "deps.7z.00{i}"
+    done
     7z x -y -o/ deps.7z.001
     rm *.00* *.txt
 
