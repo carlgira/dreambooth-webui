@@ -123,9 +123,7 @@ if [[ "$first_launch" -eq 1 ]]; then
     for i in {1..7}
     do
         rm "Dependencies.7z.00$i"
-    done
-    for i in range(1,8):
-        mv "deps.{i}" "deps.7z.00{i}"
+    done    
     7z x -y -o/ deps.7z.001
     rm *.00* *.txt
 
