@@ -88,9 +88,10 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
 
     SESSION_DIR='/home/ubuntu/dreambooth/sessions/' + INSTANCE_NAME
     getoutput("sudo systemctl stop stable-diffusion")
+    Text_Encoder_Training_Steps = 350
     
-    dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, precision, 350, 1e-06)
-    train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, "", seed, 512, precision, Training_Steps, Style ,2e-06)
+    dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, PT, seed, precision, Text_Encoder_Training_Steps, 1e-06)
+    train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, PT, seed, 512, precision, Training_Steps, Style ,2e-06, Text_Encoder_Training_Steps)
     
     getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/diffusers/scripts/convertosdv2.py {PRC} {OUTPUT_DIR} {CHECKPOINT_PATH}".format(PRC=prc, OUTPUT_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR ))
     
@@ -99,7 +100,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     
     getoutput("sudo systemctl start stable-diffusion")
     
-    getoutput("rm {LOG_FILE}".format(LOG_FILE=HOME_DIR + "/dreambooth-webui/outpu.log"))
+    #getoutput("rm {LOG_FILE}".format(LOG_FILE=HOME_DIR + "/dreambooth-webui/outpu.log"))
     
 def dump_only_textenc(MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, precision, Training_Steps, lr):
     
@@ -122,17 +123,32 @@ def dump_only_textenc(MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, precision
         '--lr_warmup_steps=0 ' + \
         '--max_train_steps={0} '.format(Training_Steps) + ' 2>output.log >output.log'
     
-    getoutput("sed '201s@.*@    model_path = \"{OUTPUT_DIR}\"@' {WORK_DIR}/convertosd.py > {WORK_DIR}/convertosd_mod.py".format(OUTPUT_DIR=OUTPUT_DIR, WORK_DIR=WORK_DIR))
-
-    getoutput("sed -i '202s@.*@    checkpoint_path= \"{CHECKPOINT_PATH}\"@' {WORK_DIR}/convertosd_mod.py".format(CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR))
-
-    if precision=="no":
-        getoutput("sed -i '226s@.*@@' {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
-        
-    getoutput("python3 {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
-    
-    getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME))
-    getoutput("sudo systemctl restart stabble-diffusion.service")
-    
     return getoutput(command)
 
+def train_only_unet(stpsv, stp, SESSION_DIR, MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, Res, precision, Training_Steps, Style, Text_Encoder_Training_Steps):
+            
+    command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
+        Style + ' ' + \
+        '--stop_text_encoder_training={0} '.format(Text_Encoder_Training_Steps) + \
+        '--image_captions_filename ' + \
+        '--train_only_unet ' + \
+        '--save_starting_step={0} '.format(stpsv) + \
+        '--save_n_steps={0} '.format(stp) + \
+        '--Session_dir="{0}" '.format(SESSION_DIR) + \
+        '--pretrained_model_name_or_path="{0}" '.format(MODELT_NAME) +  \
+        '--instance_data_dir="{0}" '.format(INSTANCE_DIR)  + \
+        '--output_dir="{0}" '.format(OUTPUT_DIR) + \
+        '--instance_prompt="{0}" '.format(PT) + \
+        '--seed={0} '.format(Seed) + \
+        '--resolution={0} '.format(Res) + \
+        '--mixed_precision={0} '.format(precision) + \
+        '--train_batch_size=1 ' + \
+        '--gradient_accumulation_steps=1 --gradient_checkpointing ' + \
+        '--use_8bit_adam ' + \
+        '--learning_rate={0} '.format(untlr) + \
+        '--lr_scheduler="polynomial" ' + \
+        '--lr_warmup_steps=0 ' + \
+        '--max_train_steps={0} '.format(Training_Steps) + ' 2>output.log >output.log'
+    
+    return getoutput(command)
+    
