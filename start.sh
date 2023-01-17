@@ -122,10 +122,11 @@ if [[ "$first_launch" -eq 1 ]]; then
     wget -q -i "https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dependencies/dbdeps.txt"
     for i in {1..3}
     do
-        mv "deps.{i}" "deps.7z.00{i}"
+        mv "deps.${i}" "deps.7z.00${i}"
     done
-    7z x -y -o/ deps.7z.001
-    rm *.00* *.txt
+    7z x deps.7z.001
+    cp -rf usr/local/lib/python3.8/dist-packages/* .venv/lib/python3.8/site-packages
+    rm -rf *.00* dbdeps.txt usr
 
     "${pip_cmd}" install -r requirements.txt
 
