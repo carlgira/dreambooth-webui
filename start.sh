@@ -120,7 +120,7 @@ fi
 if [[ "$first_launch" -eq 1 ]]; then
     "${pip_cmd}" install -q --no-deps accelerate==0.12.0
     wget -q -i "https://github.com/TheLastBen/fast-stable-diffusion/raw/main/Dependencies/dbdeps.txt"
-    for i in {1..7}
+    for i in {1..3}
     do
         mv "deps.{i}" "deps.7z.00{i}"
     done
