@@ -4,6 +4,13 @@
         <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
         <link href="static/css/style.css" rel="stylesheet" />
         <title>Generate Images</title>
+        <script>
+            function validateForm() {
+                document.getElementById('dialog-waiting').showModal();
+                return true;
+            }
+          </script>
+  
     </head>
     <body>
         <div id="nescss">
@@ -40,7 +47,7 @@
 
                         <table>
 
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="" method="POST" enctype="multipart/form-data" onsubmit="return validateForm();">
                                 <tr>
                                     <td class="columnform">
                                         <label class="nes-btn">
@@ -66,6 +73,11 @@
                                 
                             </form>
                         </table>
+                        <dialog class="nes-dialog" id="dialog-waiting">
+                            <form method="dialog">
+                              <p>This should take 8 seconds per image, just wait <i class="nes-octocat animate"></i></p>
+                            </form>
+                        </dialog>
                     </section>
                 </main>
             </div>

@@ -223,15 +223,18 @@ def txt2img():
     return render_template(TXT2IMG_PAGE)
 @flask.route('/stream')
 def stream():
-    with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
-            content = f.readlines()
-    last_line = content[-1]
-    if '100%' in last_line:
+    try:
+        with open(WORK_DIR + "/dreambooth-webui/output.log") as f:
+                content = f.readlines()
+        last_line = content[-1]
+        if '100%' in last_line:
+            return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['reload_model_message'], COUNTDOWN=texts["reload_model_time"], REDIRECT='"http://localhost:7860"')
+        def generate():
+                if len(content) > 0:
+                    yield last_line
+                    sleep(1)
+    except:
         return render_template(MESSAGES_PAGE, MESSAGE_TITLE=texts["type_of_message_info"], MESSAGE_CONTENT=texts['reload_model_message'], COUNTDOWN=texts["reload_model_time"], REDIRECT='"http://localhost:7860"')
-    def generate():
-            if len(content) > 0:
-                yield last_line
-                sleep(1)
                 
     return flask.response_class(generate(), mimetype='text/plain')
 
