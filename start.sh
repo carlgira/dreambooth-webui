@@ -40,7 +40,7 @@ fi
 # python3 venv without trailing slash (defaults to ${install_dir}/${clone_dir}/venv)
 if [[ -z "${venv_dir}" ]]
 then
-    venv_dir="venv"
+    venv_dir=".venv"
 fi
 
 
