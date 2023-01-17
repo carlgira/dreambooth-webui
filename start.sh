@@ -126,7 +126,7 @@ if [[ "$first_launch" -eq 1 ]]; then
         mv "deps.${i}" "deps.7z.00${i}"
     done
     7z x deps.7z.001
-    cp -rf usr/local/lib/python3.8/dist-packages/* .venv/lib/python3.8/site-packages
+    cp -rf usr/local/lib/python3.8/dist-packages/* venv/lib/python3.8/site-packages
     rm -rf *.00* dbdeps.txt usr
 
     "${pip_cmd}" install -r requirements.txt
