@@ -23,12 +23,12 @@ fi
 # python3 executable
 if [[ -z "${python_cmd}" ]]
 then
-    python_cmd="python3"
+    python_cmd="python3.8"
 fi
 
 if [[ -z "${pip_cmd}" ]]
 then
-    pip_cmd="pip3"
+    pip_cmd="pip3.8"
 fi
 
 # git executable
