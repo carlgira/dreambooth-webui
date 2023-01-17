@@ -1,1 +1,4 @@
 Flask==2.2.2
+chardet
+requests
+Pillow
