@@ -91,7 +91,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     Text_Encoder_Training_Steps = 350
     
     dump_only_textenc(SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, PT, seed, precision, Text_Encoder_Training_Steps, 1e-06)
-    train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, PT, seed, 512, precision, Training_Steps, Style ,2e-06, Text_Encoder_Training_Steps)
+    train_only_unet(stpsv, stp, SESSION_DIR, SD_MODEL_PATH, INSTANCE_DIR, OUTPUT_DIR, PT, seed, 512, precision, Training_Steps, Style , Text_Encoder_Training_Steps, 1e-5)
     
     getoutput(os.getenv("venv_bin_dir") + "/python {WORK_DIR}/diffusers/scripts/convertosdv2.py {PRC} {OUTPUT_DIR} {CHECKPOINT_PATH}".format(PRC=prc, OUTPUT_DIR=OUTPUT_DIR, CHECKPOINT_PATH=NEW_MODEL_NAME, WORK_DIR=WORK_DIR ))
     
@@ -124,8 +124,8 @@ def dump_only_textenc(MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, precision
         '--max_train_steps={0} '.format(Training_Steps) + ' 2>output.log >output.log'
     
     return getoutput(command)
-
-def train_only_unet(stpsv, stp, SESSION_DIR, MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, Res, precision, Training_Steps, Style, Text_Encoder_Training_Steps):
+    
+def train_only_unet(stpsv, stp, SESSION_DIR, MODELT_NAME, INSTANCE_DIR, OUTPUT_DIR, PT, Seed, Res, precision, Training_Steps, Style, Text_Encoder_Training_Steps, untlr):
             
     command = os.getenv("venv_bin_dir") + "/accelerate launch " + WORK_DIR + '/diffusers/examples/dreambooth/train_dreambooth.py ' + \
         Style + ' ' + \
