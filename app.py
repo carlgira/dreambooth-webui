@@ -2,7 +2,7 @@
 
 # import all the required libraries
 
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, redirect, jsonify, send_file
 import requests
 import os
 import subprocess
@@ -16,6 +16,7 @@ import base64
 from PIL import Image, PngImagePlugin
 import random
 import io
+from flask_cors import CORS
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
@@ -44,6 +45,7 @@ texts = languages[language]
 
 # create a flask object
 flask = Flask(__name__)
+cors = CORS(flask, resources={r"/*": {"origins": '*'}})
 # flask.config['TEMPLATES_AUTO_RELOAD'] = True # Debugging
 
 # create a route for the home page
@@ -206,6 +208,11 @@ def txt2img():
         return send_file(ZIP_FILE)
         
     return render_template(TXT2IMG_PAGE)
+
+@flask.route('/status', methods=['GET'])
+def is_dreambooth_running():
+    output = subprocess.getoutput("ps -ef | grep accelerate | grep -v grep")
+    return jsonify({'status': len(output) > 0})
 
 # run the flask app
 if __name__ == '__main__':
