@@ -207,46 +207,6 @@ def txt2img():
         
     return render_template(TXT2IMG_PAGE)
 
-@flask.route('/img2img', methods=['GET', 'POST'])
-def txt2img():
-    
-    if request.method == 'GET':
-        return render_template(TXT2IMG_PAGE)  
-    
-    if request.method == 'POST':
-        session = random.randrange(1000, 10000)
-        SESSION_DIR = OUTPUT_DIR + '/' + str(session)
-        os.mkdir(SESSION_DIR)
-        file = request.files['prompts']
-        PROMPTS_FILE = SESSION_DIR + '/' + 'prompts.json'
-        file.save(PROMPTS_FILE)
-        
-        data = None
-        with open(PROMPTS_FILE) as json_file:
-            data = json.load(json_file)
-                
-        url = "http://127.0.0.1:7860"
-        for e, payload in enumerate(data):
-            response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
-
-            r = response.json()
-
-            for i, img in enumerate(r['images']):
-                image = Image.open(io.BytesIO(base64.b64decode(img.split(",",1)[0])))
-
-                pnginfo = PngImagePlugin.PngInfo()
-                pnginfo.add_text("parameters", payload['prompt'])
-                image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
-            
-        ZIP_FILE = SESSION_DIR + '/images.zip'
-        getoutput("zip -j {ZIP_FILE} {ZIP_FILES}".format(ZIP_FILE=ZIP_FILE, ZIP_FILES=SESSION_DIR + '/*'))
-        
-        return send_file(ZIP_FILE)
-        
-    return render_template(TXT2IMG_PAGE)
-
-
-
 @flask.route('/status', methods=['GET'])
 def is_dreambooth_running():
     output = subprocess.getoutput("ps -ef | grep accelerate | grep -v grep")
