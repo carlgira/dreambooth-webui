@@ -111,7 +111,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
                     '--max_train_steps={0}'.format(Training_Steps) + ' ' + \
                     '--num_class_images={0}'.format(SUBJECT_IMAGES) + ' >out.txt 2>out.txt'
     
-    getoutput("sh start-other-services.sh")
+    getoutput("sh stop-other-services.sh")
     
     o = getoutput(command)
     
@@ -125,6 +125,6 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     getoutput("python3 {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
     
     getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME))
-    getoutput("sh stop-other-services.sh")
+    getoutput("sh start-other-services.sh")
     
     
