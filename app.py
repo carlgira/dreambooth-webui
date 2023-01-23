@@ -214,4 +214,4 @@ def is_dreambooth_running():
 
 # run the flask app
 if __name__ == '__main__':
-    flask.run(host='0.0.0.0', debug=True, port=3000)
+    flask.run(host='0.0.0.0', port=3000)
