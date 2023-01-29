@@ -17,6 +17,7 @@ from PIL import Image, PngImagePlugin
 import random
 import io
 from flask_cors import CORS
+import datetime
 
 WORK_DIR = os.environ['install_dir']
 CHECK_POINT_PATH_SD = WORK_DIR + '/stable-diffusion-webui/model.ckpt'
@@ -198,7 +199,7 @@ def txt2img():
 
                 pnginfo = PngImagePlugin.PngInfo()
                 pnginfo.add_text("parameters", payload['prompt'])
-                image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '.png' , pnginfo=pnginfo)
+                image.save(SESSION_DIR + '/' + str(e) + '-' + str(i) + '-' + str(int(datetime.datetime.today().timestamp())) + '.png' , pnginfo=pnginfo)
             
         ZIP_FILE = SESSION_DIR + '/images.zip'
         getoutput("zip -j {ZIP_FILE} {ZIP_FILES}".format(ZIP_FILE=ZIP_FILE, ZIP_FILES=SESSION_DIR + '/*'))
