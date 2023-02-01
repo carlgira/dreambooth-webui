@@ -190,7 +190,12 @@ def txt2img():
                 
         url = "http://127.0.0.1:7860"
         for e, payload in enumerate(data):
-            response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
+            
+            operation = "txt2img"
+            if 'init_images' in payload:
+                operation = "img2img"
+
+            response = requests.post(url=f'{url}/sdapi/v1/{operation}', json=payload)
 
             r = response.json()
 
