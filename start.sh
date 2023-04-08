@@ -28,7 +28,7 @@ fi
 
 if [[ -z "${pip_cmd}" ]]
 then
-    pip_cmd="pip3"
+    pip_cmd="pip"
 fi
 
 # git executable
