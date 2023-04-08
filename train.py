@@ -122,7 +122,7 @@ def train_model(training_subject, subject_type, instance_name, class_dir, traini
     if precision=="no":
         getoutput("sed -i '226s@.*@@' {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
         
-    getoutput("python3 {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
+    getoutput("python3.9 {WORK_DIR}/convertosd_mod.py".format(WORK_DIR=WORK_DIR))
     
     getoutput("cp {CHECKPOINT_PATH} {MODEL_NAME}".format(CHECKPOINT_PATH=NEW_MODEL_NAME, MODEL_NAME=MODEL_NAME))
     getoutput("sh start-other-services.sh")
