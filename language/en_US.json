@@ -2,7 +2,7 @@
     "type_of_message_info": "Information",
     "type_of_message_error": "Error",
     "training_in_progress": "Training already in progress, it should take an hour.",
-    "training_time" : 2100,
+    "training_time" : 1500,
     "error_unzip" : "There was an error while unzipping the file, please check the file and try again.",
     "error_zip_contains_other_files" : "The zip file contains files that are not images. Images must be in .png, .jpg or .jpeg format",
     "error_no_zip_file": "No zip file uploaded",
