@@ -1,7 +1,7 @@
 # dreambooth-webui
 Simple webui to setup and train dreambooth for stable diffusion.
 
-Tested on a ubuntu 22.04 where the https://github.com/AUTOMATIC1111/stable-diffusion-webui its also installed and running in http://localhost:7860.
+Tested on a Oracle Linux 8 where the https://github.com/AUTOMATIC1111/stable-diffusion-webui its also installed and running in http://localhost:7860.
 
 ## Requirements
 - You need to have installed some dependencies
@@ -28,8 +28,8 @@ cat <<EOT >> /etc/systemd/system/dreambooth.service
 Description=systemd service start dreambooth
 
 [Service]
-ExecStart=/bin/bash /home/ubuntu/dreambooth-webui/start.sh
-User=ubuntu
+ExecStart=/bin/bash /home/opc/dreambooth-webui/start.sh
+User=opc
 
 [Install]
 WantedBy=multi-user.target

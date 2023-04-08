@@ -47,7 +47,7 @@ fi
 # Disable sentry logging
 export ERROR_REPORTING=FALSE
 
-# Do not reinstall existing pip packages on Debian/Ubuntu
+# Do not reinstall existing pip packages
 export PIP_IGNORE_INSTALLED=0
 
 # Pretty print
