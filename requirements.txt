@@ -41,7 +41,6 @@ typing-inspect==0.8.0
 typing_extensions==4.4.0
 urllib3==1.26.12
 Werkzeug==2.2.2
-https://github.com/C43H66N12O12S2/stable-diffusion-webui/releases/download/linux/xformers-0.0.14.dev0-cp310-cp310-linux_x86_64.whl
 zipp==3.10.0
 ftfy==6.1.1
 flask_cors
