@@ -12,7 +12,7 @@
     "error_unexpected" : "An unexpected error occurred. Please try again later.",
     
     "ok_download": "The model has been downloaded successfully. Now you have to wait 5 minutes for the web app to be ready." ,
-    "download_waiting_time" : 300
+    "download_waiting_time" : 30
 
 
 
